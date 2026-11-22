@@ -63,6 +63,15 @@ export default function HomeScreen() {
           </Text>
         </View>
 
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="30日間のレッスン一覧を見る"
+          onPress={() => router.push("/course")}
+          style={({ pressed }) => [styles.courseButton, pressed && styles.lessonActionPressed]}
+        >
+          <Text style={styles.courseButtonText}>30日間のレッスンを見る ›</Text>
+        </Pressable>
+
         <View style={styles.lessonCard}>
           <View style={styles.lessonTopRow}>
             <Text style={styles.dayPill}>DAY {lesson.day}</Text>
@@ -155,6 +164,8 @@ function createStyles(colors: (typeof palettes)["pop"] | (typeof palettes)["simp
     backgroundColor: colors.primary,
   },
   supportingText: { color: colors.muted, fontSize: 13, lineHeight: 21 },
+  courseButton: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: 16, padding: 16, minHeight: 52, justifyContent: "center", alignItems: "center" },
+  courseButtonText: { color: colors.primary, fontSize: 15, fontWeight: "800" },
   lessonCard: {
     backgroundColor: colors.peach,
     borderRadius: design === "simple" ? 16 : 28,
