@@ -44,8 +44,11 @@ type LessonProgress = {
   isDayCompleted: (day: number) => boolean;
   day4Completed: boolean;
   practicePassed: boolean;
+  day1PracticePassed: boolean;
   progressLoaded: boolean;
   markPracticePassed: () => void;
+  markDay1PracticePassed: () => void;
+  completeDay1: () => void;
   completeDay4: () => void;
 };
 
@@ -54,6 +57,7 @@ const LessonProgressContext = createContext<LessonProgress | null>(null);
 export function LessonProgressProvider({ children }: { children: ReactNode }) {
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [practicePassed, setPracticePassed] = useState(false);
+  const [day1PracticePassed, setDay1PracticePassed] = useState(false);
   const [progressLoaded, setProgressLoaded] = useState(Platform.OS !== "web");
 
   useEffect(() => {
@@ -74,7 +78,15 @@ export function LessonProgressProvider({ children }: { children: ReactNode }) {
       isDayCompleted: (day: number) => validDay(day) && completedDays.includes(day),
       day4Completed: completedDays.includes(4),
       practicePassed,
+      day1PracticePassed,
       progressLoaded,
+      markDay1PracticePassed: () => setDay1PracticePassed(true),
+      completeDay1: () => {
+        if (!day1PracticePassed || !progressLoaded || completedDays.includes(1)) return;
+        const next = normalizeDays([...completedDays, ...readCompletedDays(), 1]);
+        writeCompletedDays(next);
+        setCompletedDays(next);
+      },
       markPracticePassed: () => setPracticePassed(true),
       completeDay4: () => {
         if (!practicePassed || !progressLoaded) return;
@@ -84,7 +96,7 @@ export function LessonProgressProvider({ children }: { children: ReactNode }) {
         setCompletedDays(next);
       },
     }),
-    [completedDays, practicePassed, progressLoaded],
+    [completedDays, practicePassed, day1PracticePassed, progressLoaded],
   );
   return <LessonProgressContext.Provider value={value}>{children}</LessonProgressContext.Provider>;
 }
