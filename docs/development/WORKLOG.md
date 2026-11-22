@@ -1,5 +1,12 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — スライドする透明ガラスタブ（Web版）
+
+- 参考画像の「半透明の角丸ピルが選択タブへ滑る」動きを、iPhone Safari向けの4タブに反映。
+- React Navigationの既存タブ画面・遷移を維持し、WebのみカスタムTabBarを使用。280msのアニメーション、透過白・ぼかし・白い縁・控えめな影を設定。
+- 既存の下部Safe Area余白、タブのアクセシビリティラベル、選択状態、tabPressイベントを維持。ネイティブのタブ表示は変更なし。
+- PR品質チェックとPreviewを確認し、iPhone Safari実機でタブの位置・動き・ラベル切れを確認すること。自動マージは行わない。
+
 ## 2026-11-22 — URL共有用OGP対応
 
 - Expo Routerの`src/app/+html.tsx`にOGP title/description/image/url、画像サイズ、X large image card、descriptionを追加。
