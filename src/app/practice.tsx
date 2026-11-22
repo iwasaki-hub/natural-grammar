@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLessonProgress } from "../context/LessonProgressContext";
 
 type Question = {
   sentence: string;
@@ -52,6 +53,7 @@ const colors = {
 } as const;
 
 export default function PracticeScreen() {
+  const { markPracticePassed } = useLessonProgress();
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [mistake, setMistake] = useState(false);
@@ -69,6 +71,7 @@ export default function PracticeScreen() {
   function next() {
     if (!canContinue) return;
     if (index === questions.length - 1) {
+      markPracticePassed();
       setFinished(true);
     } else {
       setIndex((current) => current + 1);
@@ -103,26 +106,26 @@ export default function PracticeScreen() {
         <View style={styles.stageCard}>
           <Text style={styles.stageLabel}>今日の学習ステップ</Text>
           <Text style={styles.stageText}>① 解説　→　② 練習（いまここ）　→　③ まとめ</Text>
-          <Text style={styles.smallText}>まとめと学習記録は今後追加します。</Text>
+          <Text style={styles.smallText}>3問正解したら、まとめに進めます。</Text>
         </View>
         {finished ? (
           <View style={styles.card}>
             <Text style={styles.title} accessibilityRole="header">3問すべて正解！ ✨</Text>
             <Text style={styles.body}>I / she / they に合わせて動詞の形を選べました。</Text>
-            <Text style={styles.body}>これは練習の終了画面です。30日コースの進捗や学習完了はまだ保存されません。</Text>
+            <Text style={styles.body}>続いて今日の学びを振り返り、レッスンを完了しましょう。</Text>
             <Pressable
               style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
-              onPress={restart}
+              onPress={() => router.replace("/summary")}
               accessibilityRole="button"
             >
-              <Text style={styles.primaryText}>もう一度練習する</Text>
+              <Text style={styles.primaryText}>今日のまとめへ進む</Text>
             </Pressable>
             <Pressable
               style={styles.secondaryButton}
-              onPress={() => router.replace("/")}
+              onPress={restart}
               accessibilityRole="button"
             >
-              <Text style={styles.secondaryText}>ホームに戻る</Text>
+              <Text style={styles.secondaryText}>もう一度練習する</Text>
             </Pressable>
           </View>
         ) : (
@@ -179,7 +182,7 @@ export default function PracticeScreen() {
                 <Text style={styles.primaryText}>{index === questions.length - 1 ? "練習結果を見る" : "次の問題へ"}</Text>
               </Pressable>
             )}
-            <Text style={styles.smallText}>※ サンプル問題です。回答履歴やコース進捗は保存されません。</Text>
+            <Text style={styles.smallText}>※ サンプル問題です。学習状態はこの起動中だけ保持されます。</Text>
           </>
         )}
       </ScrollView>
