@@ -1,5 +1,11 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — コバルトブルーのブランド画像案を保存
+
+- 生成したアイコンとスプラッシュ画面の原本を `docs/design/images/` に追加し、[設計資料](../design/first-step.md#ブランド画像案)から参照できるようにした。
+- アプリは引き続き既存のブランド画像を `postinstall` で生成して使用する。
+- `npm ci`、`npx tsc --noEmit`、`npm run lint` はローカルで成功。
+
 ## 2026-11-22 — iPhone Safari下部タブの切れを修正
 
 - iPhone Safariで下部タブのアイコンとラベルが下端に切れるスクリーンショットを確認。
