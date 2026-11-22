@@ -1,5 +1,12 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — iPhone Safari下部タブの切れを修正
+
+- iPhone Safariで下部タブのアイコンとラベルが下端に切れるスクリーンショットを確認。
+- `src/app/(tabs)/_layout.tsx` のタブバーに明示的な高さとSafe Area下部余白を追加。ラベル行高、アイコン領域、アイテム内余白も調整。
+- Expo RouterのTabs設定に限定した最小修正。ホーム→解説→練習→まとめの画面構成は変更なし。
+- CIのTypeScript/ESLint/Expo Hosting Preview、iPhone Safariでの実機再確認が必要。
+
 ## 2026-11-22 — Natural Grammar専用アイコンとスプラッシュ（PR #12へ追加）
 
 - ティール・クリーム・ピーチ・ミント・ゴールドの配色で、本・若葉・星を組み合わせたオリジナルのブランドマークを追加。

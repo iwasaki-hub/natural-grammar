@@ -1,5 +1,6 @@
 import { Tabs } from "expo-router";
-import { Text, type ColorValue } from "react-native";
+import { Platform, Text, type ColorValue } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const colors = {
   background: "#FFF9F1",
@@ -18,15 +19,27 @@ function TabIcon({ glyph, color }: { glyph: string; color: ColorValue }) {
 }
 
 export default function MainTabsLayout() {
+  const insets = useSafeAreaInsets();
+  // Mobile Safari can reserve too little height for the browser-rendered tab bar.
+  // Keep both the icon and its label inside an explicitly sized, safe-area-aware bar.
+  const bottomInset = Platform.OS === "web" ? Math.max(insets.bottom, 12) : insets.bottom;
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.muted,
-        tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.border, paddingTop: 6 },
-        tabBarLabelStyle: { fontSize: 11, fontWeight: "700" },
+        tabBarStyle: {
+          backgroundColor: colors.surface,
+          borderTopColor: colors.border,
+          height: 64 + bottomInset,
+          paddingTop: 8,
+          paddingBottom: bottomInset,
+        },
+        tabBarLabelStyle: { fontSize: 12, lineHeight: 17, fontWeight: "700", marginTop: 2, marginBottom: 0 },
         tabBarLabelPosition: "below-icon",
+        tabBarIconStyle: { height: 28, width: 32 },
+        tabBarItemStyle: { paddingVertical: 0 },
         tabBarHideOnKeyboard: true,
         sceneStyle: { backgroundColor: colors.background },
       }}
