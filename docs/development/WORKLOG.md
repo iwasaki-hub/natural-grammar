@@ -1,3 +1,9 @@
+## 2026-11-22 — PR #18 CIエラー修正
+
+- 初回CIはQuality checksとExpo Hosting PreviewがLintで失敗。原因はDesignContextのeffect内での同期setState（react-hooks/set-state-in-effect）。
+- 保存済みデザインの復元を初回描画後のmicrotaskに遅延し、SSR初期表示を維持。アンマウント時の更新防止を追加。
+- タブレイアウトの未使用colors定義を削除。TypeScript/ESLintとPreviewは再実行結果待ち。
+
 ## 2026-11-22 — 画面デザイン切り替え（ポップ／落ち着いたシンプル）
 
 - 設定画面の「画面のデザイン」を実際に選択できるラジオ形式へ変更。既存のポップを初期値とし、落ち着いたシンプルを追加。
