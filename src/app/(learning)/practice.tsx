@@ -182,7 +182,7 @@ export default function PracticeScreen() {
                 <Text style={styles.primaryText}>{index === questions.length - 1 ? "練習結果を見る" : "次の問題へ"}</Text>
               </Pressable>
             )}
-            <Text style={styles.smallText}>※ サンプル問題です。学習状態はこの起動中だけ保持されます。</Text>
+            <Text style={styles.smallText}>※ サンプル問題です。練習途中の状態は保存されません。Day 4の完了はまとめ画面から保存できます。</Text>
           </>
         )}
       </ScrollView>
