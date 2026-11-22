@@ -5,7 +5,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLessonProgress } from "../../context/LessonProgressContext";
 
-// Foundation 2 uses sample data; Day 4 completion is held in memory only.
+// Days 1–3 are sample baseline data; subsequent completions come from saved progress.
 const lesson = {
   day: 4,
   completedDays: 3,
@@ -17,10 +17,10 @@ const lesson = {
 };
 
 export default function HomeScreen() {
-  const { day4Completed, progressLoaded } = useLessonProgress();
+  const { day4Completed, completedDays: savedDays, progressLoaded } = useLessonProgress();
   const { design, colors } = useDesign();
   const styles = useMemo(() => createStyles(colors, design), [colors, design]);
-  const completedDays = lesson.completedDays + (progressLoaded && day4Completed ? 1 : 0);
+  const completedDays = lesson.completedDays + (progressLoaded ? savedDays.filter((day) => day > 3).length : 0);
   const progress = (completedDays / lesson.totalDays) * 100;
 
   return (

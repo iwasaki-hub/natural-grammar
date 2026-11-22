@@ -2,8 +2,46 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import { Platform } from "react-native";
 
 const progressKey = "natural-grammar:lesson-progress:v1";
+const totalDays = 30;
+
+type SavedProgress = { version: 1; completedDays: number[] };
+
+function validDay(day: number): boolean {
+  return Number.isInteger(day) && day >= 1 && day <= totalDays;
+}
+
+function normalizeDays(value: unknown): number[] {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.filter((day): day is number => typeof day === "number" && validDay(day)))].sort((a, b) => a - b);
+}
+
+function readCompletedDays(): number[] {
+  if (Platform.OS !== "web") return [];
+  try {
+    const raw = window.localStorage.getItem(progressKey);
+    if (!raw) return [];
+    const saved: unknown = JSON.parse(raw);
+    if (!saved || typeof saved !== "object" || !("version" in saved) || saved.version !== 1 ||
+        !("completedDays" in saved)) return [];
+    return normalizeDays(saved.completedDays);
+  } catch {
+    return [];
+  }
+}
+
+function writeCompletedDays(days: number[]) {
+  if (Platform.OS !== "web") return;
+  try {
+    const saved: SavedProgress = { version: 1, completedDays: normalizeDays(days) };
+    window.localStorage.setItem(progressKey, JSON.stringify(saved));
+  } catch {
+    // Browsers can disable local storage; keep the current session functional.
+  }
+}
 
 type LessonProgress = {
+  completedDays: readonly number[];
+  isDayCompleted: (day: number) => boolean;
   day4Completed: boolean;
   practicePassed: boolean;
   progressLoaded: boolean;
@@ -14,54 +52,39 @@ type LessonProgress = {
 const LessonProgressContext = createContext<LessonProgress | null>(null);
 
 export function LessonProgressProvider({ children }: { children: ReactNode }) {
-  const [day4Completed, setDay4Completed] = useState(false);
+  const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [practicePassed, setPracticePassed] = useState(false);
   const [progressLoaded, setProgressLoaded] = useState(Platform.OS !== "web");
 
   useEffect(() => {
     if (Platform.OS !== "web") return;
     let active = true;
-    // Restore after hydration so the server and first client render agree.
+    // Keep server rendering and the first client render identical.
     Promise.resolve().then(() => {
       if (!active) return;
-      try {
-        const raw = window.localStorage.getItem(progressKey);
-        if (raw) {
-          const saved: unknown = JSON.parse(raw);
-          if (saved && typeof saved === "object" && "version" in saved && saved.version === 1 &&
-              "completedDays" in saved && Array.isArray(saved.completedDays) &&
-              saved.completedDays.includes(4)) {
-            setDay4Completed(true);
-          }
-        }
-      } catch {
-        // Storage can be unavailable or contain invalid data; continue in memory.
-      } finally {
-        if (active) setProgressLoaded(true);
-      }
+      setCompletedDays(readCompletedDays());
+      setProgressLoaded(true);
     });
     return () => { active = false; };
   }, []);
 
   const value = useMemo(
     () => ({
-      day4Completed,
+      completedDays,
+      isDayCompleted: (day: number) => validDay(day) && completedDays.includes(day),
+      day4Completed: completedDays.includes(4),
       practicePassed,
       progressLoaded,
       markPracticePassed: () => setPracticePassed(true),
       completeDay4: () => {
-        if (!practicePassed) return;
-        setDay4Completed(true);
-        if (Platform.OS === "web") {
-          try {
-            window.localStorage.setItem(progressKey, JSON.stringify({ version: 1, completedDays: [4] }));
-          } catch {
-            // Keep completion visible even if the browser refuses storage.
-          }
-        }
+        if (!practicePassed || !progressLoaded) return;
+        if (completedDays.includes(4)) return;
+        const next = normalizeDays([...completedDays, ...readCompletedDays(), 4]);
+        writeCompletedDays(next);
+        setCompletedDays(next);
       },
     }),
-    [day4Completed, practicePassed, progressLoaded],
+    [completedDays, practicePassed, progressLoaded],
   );
   return <LessonProgressContext.Provider value={value}>{children}</LessonProgressContext.Provider>;
 }
