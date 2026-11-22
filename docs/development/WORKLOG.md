@@ -1,5 +1,12 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — Foundation 2-2
+
+- ホームのレッスンCTAを有効化し、Expo Routerの /lesson に遷移する解説画面を追加。
+- Day 4の一般動詞の現在形を短い例文と日本語で説明。練習・完了記録は未実装。
+- PRのPreview自動デプロイと品質チェック、iPhoneでの画面確認はPR作成後に実施する。未実施を成功扱いしない。
+- 詳細: [Foundation 2-2](foundation-2-2.md)。
+
 ## 2026-11-22 — PR Preview / main Productionへの変更
 
 - GitHub ActionsをPR作成・更新時のPreviewと、main push時のProductionに分岐。品質チェックとWeb exportを両方の前提にする。

@@ -1,4 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const colors = {
@@ -84,17 +85,15 @@ export default function HomeScreen() {
               私は毎朝コーヒーを飲みます。
             </Text>
           </View>
-          <View
-            style={styles.disabledAction}
-            accessibilityLabel="レッスンを始める。解説画面は準備中です"
-            accessibilityState={{ disabled: true }}
+          <Pressable
+            style={({ pressed }) => [styles.lessonAction, pressed && styles.lessonActionPressed]}
             accessibilityRole="button"
+            accessibilityLabel="Day 4のレッスン解説を開く"
+            onPress={() => router.push("/lesson")}
           >
             <Text style={styles.disabledActionText}>レッスンを始める</Text>
-          </View>
-          <Text style={styles.comingSoon}>
-            ※ 解説・練習画面は次の開発段階で追加します
-          </Text>
+          </Pressable>
+          <Text style={styles.comingSoon}>まずは短い解説を読んでみましょう。練習は準備中です。</Text>
         </View>
 
         <View style={styles.achievementCard}>
@@ -204,9 +203,8 @@ const styles = StyleSheet.create({
     lineHeight: 26,
   },
   exampleJapanese: { color: colors.muted, fontSize: 13, lineHeight: 21 },
-  disabledAction: {
+  lessonAction: {
     backgroundColor: colors.primary,
-    opacity: 0.58,
     borderRadius: 18,
     minHeight: 52,
     justifyContent: "center",
@@ -214,6 +212,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
+  lessonActionPressed: { opacity: 0.8 },
   disabledActionText: {
     color: colors.surface,
     fontSize: 16,
