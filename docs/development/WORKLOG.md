@@ -1,5 +1,13 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — Natural Grammar専用アイコンとスプラッシュ（PR #12へ追加）
+
+- ティール・クリーム・ピーチ・ミント・ゴールドの配色で、本・若葉・星を組み合わせたオリジナルのブランドマークを追加。
+- `scripts/generate-brand-assets.cjs` がNode.js標準機能のみでPNG（iOS/一般アイコン、Android adaptive icon、スプラッシュ、favicon）を生成。`npm ci` の `postinstall` で自動生成。
+- `app.json` のアイコン・スプラッシュ・faviconを新しい画像パスへ設定。生成物は `.gitignore` で除外。
+- 実機iOSのホームアイコン・起動スプラッシュは開発ビルド/配布ビルドでの検証が必要。Expo Goではアプリ固有アイコンの反映を確認できない。
+- PRのTypeScript/ESLint/Expo Hosting Previewを再実行し、結果を確認する。
+
 ## 2026-11-22 — 下部4タブ（PR作成前）
 
 - `docs/design/first-step.md` を根拠として、ホーム / 復習 / 成長記録 / 設定の4タブを追加。
