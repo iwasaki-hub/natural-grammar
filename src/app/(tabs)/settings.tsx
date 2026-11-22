@@ -40,8 +40,8 @@ export default function SettingsScreen() {
       </TabCard>
       <TabCard pale>
         <Text style={[styles.heading, { color: colors.ink }]} accessibilityRole="header">学習データについて</Text>
-        <Text style={[styles.body, { color: colors.ink }]}>現在はお試し版です。レッスン完了の状態はアプリを使っている間だけ保持されます。</Text>
-        <Text style={[styles.note, { color: colors.muted }]}>アカウント機能と学習履歴の保存は今後実装します。</Text>
+        <Text style={[styles.body, { color: colors.ink }]}>現在はお試し版です。Day 4の完了状態はWeb版のこのブラウザに保存されます。</Text>
+        <Text style={[styles.note, { color: colors.muted }]}>アカウント連携、複数端末での同期、詳細な学習履歴は今後実装します。</Text>
       </TabCard>
     </TabPage>
   );
