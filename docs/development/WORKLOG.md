@@ -5,7 +5,7 @@
 - `docs/design/first-step.md` を根拠として、ホーム / 復習 / 成長記録 / 設定の4タブを追加。
 - ホームを `(tabs)/index.tsx` に移し、ルートStackにタブナビゲーターを組み込み。既存の `/lesson`, `/practice`, `/summary` のURLは維持。
 - 復習タブはサンプル3問へ再挑戦。成長記録はDay 4の完了状態を表示。設定ではテーマ案を説明し、未実装の切り替え操作は追加しない。
-- ローカルlint / TypeScript / iPhone実機テストは未実施。PRの品質チェック・Previewの結果は作成後に確認する。
+- ローカルlint / TypeScript / iPhone実機テストは未実施。PR #12の最初の品質チェックで `tabBarIcon` の `ColorValue` 型エラー4件が発生し、TabIconの引数型を修正。再実行結果を確認する。
 - 詳細: [ホーム下部タブ](home-tabs.md)。
 
 ## 2026-11-22 — Expo Router構成と初期テンプレート整理
