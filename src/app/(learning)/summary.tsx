@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLessonProgress } from "../context/LessonProgressContext";
+import { useLessonProgress } from "../../context/LessonProgressContext";
 
 const colors = {
   background: "#FFF9F1",

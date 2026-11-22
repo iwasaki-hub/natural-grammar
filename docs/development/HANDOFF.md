@@ -13,6 +13,7 @@
 - Foundation 2-2: ホームから解説への画面遷移と現在形の解説画面を実装（PR #8マージ済み）。
 - Foundation 2-3: 解説から練習への遷移と3問のサンプル練習、誤答時ヒント・再挑戦を実装（PR #9マージ済み）。
 - Foundation 2-4: 3問正解後のまとめ、完了ボタン、ホームの3/30→4/30と成長記録の更新をfeatureブランチで実装。PRの検証・マージは別途確認。
+- Router構成見直し: 学習3画面を `src/app/(learning)/` に整理（URLは維持）。専用 `+not-found.tsx`、README・app.jsonの初期テンプレート表示を整理。専用アイコン/faviconは今後制作。
 - EAS Hosting: PR作成・更新でPreview、mainへのpushでProduction（PR #7マージ済み）。EXPO_TOKENはGitHub Repository secret。公開URLはActionsログで確認。
 
 ## 対象外・注意

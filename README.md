@@ -1,66 +1,56 @@
-# Welcome to your Expo app 👋
+# Natural Grammar
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+社会人の英文法初学者向けの英語学習アプリ。1日約10分、30日間でアメリカ英語の基礎を学ぶことを目指します。
 
-## App design
+## 現在できること
+- Day 4「一般動詞の現在形」の解説
+- 3問の練習、誤答時のヒントと再挑戦
+- レッスンまとめと完了フロー
+- ホームのサンプル進捗表示（3/30 → 4/30）
 
-[「今日の一歩」— iPhone向け初期版UI](docs/design/first-step.md)
+**現時点の学習進捗はメモリ内のみです。** ブラウザの再読み込みやアプリ再起動でリセットされます。認証、永続保存、AIヒントは未実装です。
 
-## Development status
-
-- [Current handoff and next steps](docs/development/HANDOFF.md)
-- [Development worklog](docs/development/WORKLOG.md)
-- [Foundation 1 quality checks](docs/development/foundation-1.md)
-
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 開発環境
+Expo SDK 58 / React Native / TypeScript / Expo Router
 
 ```bash
-npm run reset-project
+npm ci
+npx expo start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+品質チェック:
 
-### Other setup steps
+```bash
+npx tsc --noEmit
+npm run lint
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## 画面構成
 
-## Learn more
+```text
+src/
+  app/
+    _layout.tsx             # ルートStack・学習状態Provider
+    index.tsx               # ホーム (/)
+    +not-found.tsx          # 不明なURL
+    (learning)/             # URLに含まれない学習画面グループ
+      lesson.tsx            # /lesson
+      practice.tsx          # /practice
+      summary.tsx           # /summary
+  context/
+    LessonProgressContext.tsx  # 起動中だけ保持する学習状態
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Expo Routerの括弧付きグループはURLに影響しないため、既存の画面URLを維持しています。動的な日別ルートは複数日の教材が実装される段階で検討します。
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## ドキュメント
+- [UI設計「今日の一歩」](docs/design/first-step.md)
+- [開発引き継ぎ](docs/development/HANDOFF.md)
+- [作業履歴](docs/development/WORKLOG.md)
+- [Expo Router notation](https://docs.expo.dev/router/basics/notation/)
 
-## Join the community
+## デプロイ
+GitHub Pull RequestでExpo Hosting Preview、`main`へのマージでProductionデプロイ。マージは明示的な承認後に実施します。
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 今後の予定
+学習進捗の永続化、複数日カリキュラム、AIヒント、復習機能。アプリ専用アイコン・faviconの制作も今後の課題です。
