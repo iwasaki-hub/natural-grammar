@@ -22,10 +22,17 @@ export function DesignProvider({ children }: { children: ReactNode }) {
   const [design, setDesign] = useState<DesignTheme>("pop");
   useEffect(() => {
     if (Platform.OS !== "web") return;
-    try {
-      const stored = window.localStorage.getItem(storageKey);
-      if (stored === "pop" || stored === "simple") setDesign(stored);
-    } catch { /* Private browsing may block storage. */ }
+    let active = true;
+    // Defer restoring the browser preference until after the initial render.
+    // This keeps SSR hydration stable and avoids synchronous effect updates.
+    Promise.resolve().then(() => {
+      if (!active) return;
+      try {
+        const stored = window.localStorage.getItem(storageKey);
+        if (stored === "pop" || stored === "simple") setDesign(stored);
+      } catch { /* Private browsing may block storage. */ }
+    });
+    return () => { active = false; };
   }, []);
   const choose = (next: DesignTheme) => {
     setDesign(next);
