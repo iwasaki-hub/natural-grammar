@@ -41,14 +41,14 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
   useEffect(() => {
     Animated.timing(position, {
       toValue: state.index,
-      duration: 280,
+      duration: 420,
       useNativeDriver: true,
     }).start();
   }, [position, state.index]);
 
   const glassBlur = {
-    backdropFilter: "blur(18px) saturate(150%)",
-    WebkitBackdropFilter: "blur(18px) saturate(150%)",
+    backdropFilter: "blur(24px) saturate(165%)",
+    WebkitBackdropFilter: "blur(24px) saturate(165%)",
   } as unknown as ViewStyle;
 
   return (
@@ -62,8 +62,8 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
         height: 68,
         borderRadius: 24,
         borderWidth: 1,
-        borderColor: "rgba(255,255,255,0.8)",
-        backgroundColor: "rgba(255,249,241,0.88)",
+        borderColor: "rgba(255,255,255,0.92)",
+        backgroundColor: "rgba(231,240,232,0.78)",
         overflow: "hidden",
         shadowColor: "#305D55",
         shadowOpacity: 0.08,
@@ -77,18 +77,19 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
           style={[
             {
               position: "absolute",
-              top: 5,
-              bottom: 5,
+              top: 4,
+              bottom: 4,
               left: 0,
-              width: Math.max(itemWidth - 8, 0),
-              marginLeft: 4,
-              borderRadius: 19,
-              borderWidth: 1.5,
-              borderColor: "rgba(255,255,255,0.95)",
-              backgroundColor: "rgba(255,255,255,0.48)",
-              shadowColor: "#FFFFFF",
-              shadowOpacity: 0.8,
-              shadowRadius: 9,
+              width: Math.max(itemWidth - 6, 0),
+              marginLeft: 3,
+              borderRadius: 20,
+              borderWidth: 2,
+              borderColor: "rgba(255,255,255,1)",
+              backgroundColor: "rgba(255,255,255,0.76)",
+              shadowColor: "#237A6D",
+              shadowOpacity: 0.26,
+              shadowRadius: 14,
+              shadowOffset: { width: 0, height: 3 },
               transform: [{ translateX: Animated.multiply(position, itemWidth) }],
             },
             glassBlur,
