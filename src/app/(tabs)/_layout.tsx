@@ -1,5 +1,5 @@
 import { Tabs, router } from "expo-router";
-import { useEffect, useRef, useState, type ComponentProps } from "react";
+import { useEffect, useState, type ComponentProps } from "react";
 import { Animated, Platform, Pressable, Text, View, type ColorValue, type ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -34,7 +34,7 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
   const insets = useSafeAreaInsets();
   const bottomInset = Math.max(insets.bottom, 12);
   const [barWidth, setBarWidth] = useState(0);
-  const position = useRef(new Animated.Value(state.index)).current;
+  const [position] = useState(() => new Animated.Value(state.index));
   const count = state.routes.length;
   const itemWidth = count ? barWidth / count : 0;
 
