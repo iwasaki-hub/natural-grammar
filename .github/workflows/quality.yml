@@ -25,8 +25,5 @@ jobs:
         run: npm ci
       - name: Typecheck
         run: npx tsc --noEmit
-      # Temporary until ESLint dependencies and the npm lockfile are committed together.
-      - name: Install ESLint tooling (temporary)
-        run: npm install --no-save --package-lock=false eslint@^9 eslint-config-expo
       - name: Lint
         run: npm run lint
