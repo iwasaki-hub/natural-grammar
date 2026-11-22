@@ -19,6 +19,8 @@
 - OGP共有プレビュー: `src/app/+html.tsx`にOpen Graph/Xカード設定、`public/og-image.png`は`postinstall`で生成。SNS実表示は未確認。
 - EAS Hosting: PR作成・更新でPreview、mainへのpushでProduction（PR #7マージ済み）。EXPO_TOKENはGitHub Repository secret。公開URLはActionsログで確認。
 
+- 30日間のレッスン一覧: ホームから /course を開ける。Day 4のみ学習可能で、その他は準備中。保存済みDay 4は完了表示。実機表示は未確認。
+
 ## 対象外・注意
 - AIヒントは未実装。練習とまとめはDay 4サンプルのみ。誤答履歴の蓄積・絞り込み復習、外観切り替えも未実装。
 - 学習完了データはDay 1〜30の番号配列としてWeb版localStorageに保存（既存v1形式を維持）。現在実際に完了できる教材はDay 4のみ。Day 1〜3は表示上のサンプル基準値で保存履歴ではない。練習途中は一時状態のみ。認証、API連携、端末間同期、ネイティブ保存なし。
