@@ -34,7 +34,16 @@ export default function GrammarScreen() {
   const question = questions[index];
   const correct = selected === question?.correct;
   // Switching lessons must never carry over a previously passed quiz.
-  useEffect(() => { setIndex(0); setSelected(null); setFinished(false); }, [day, stage]);
+  useEffect(() => {
+    let active = true;
+    Promise.resolve().then(() => {
+      if (!active) return;
+      setIndex(0);
+      setSelected(null);
+      setFinished(false);
+    });
+    return () => { active = false; };
+  }, [day, stage]);
   function go(next: Stage) {
     router.replace({ pathname: "/grammar", params: { day: String(day), stage: next } });
   }
