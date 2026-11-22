@@ -69,7 +69,7 @@ export default function SummaryScreen() {
               <View style={styles.track} accessibilityRole="progressbar" accessibilityLabel="コースのサンプル進捗" accessibilityValue={{ min: 0, max: 30, now: day4Completed ? 4 : 3 }}>
                 <View style={[styles.fill, { width: `${((day4Completed ? 4 : 3) / 30) * 100}%` }]} />
               </View>
-              <Text style={styles.smallText}>レッスン完了ボタンで進捗を更新します（この起動中のみ）。</Text>
+              <Text style={styles.smallText}>レッスン完了ボタンで進捗を更新し、このブラウザに保存します。</Text>
             </View>
             <Pressable
               style={({ pressed }) => [styles.action, pressed && styles.pressed]}
@@ -79,7 +79,7 @@ export default function SummaryScreen() {
             >
               <Text style={styles.actionText}>{day4Completed ? "ホームに戻る" : "レッスンを完了する"}</Text>
             </Pressable>
-            <Text style={styles.smallText}>※ 進捗と成長記録はアプリ起動中のサンプル表示です。再読み込みすると元に戻り、サーバーには保存されません。</Text>
+            <Text style={styles.smallText}>※ Day 4の完了状態はこのブラウザに保存します。別の端末への同期やサーバー保存はありません。</Text>
           </>
         )}
       </ScrollView>
