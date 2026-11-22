@@ -7,7 +7,7 @@ test.afterEach(async ({ page }, testInfo) => {
 });
 
 test("ホームから30日間のレッスン一覧へ移動し、戻るでホームに戻れる", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });
   await page.getByRole("button", { name: "30日間のレッスン一覧を見る" }).click();
   await expect(page.getByRole("heading", { name: "30日間のレッスン" })).toBeVisible();
   await expect(page.getByRole("button", { name: /Day 30/ })).toBeVisible();
@@ -16,7 +16,7 @@ test("ホームから30日間のレッスン一覧へ移動し、戻るでホー
 });
 
 test("Day 2の解説から練習・まとめ・完了まで進める", async ({ page }) => {
-  await page.goto("/course");
+  await page.goto("/course", { waitUntil: "networkidle" });
   await page.getByRole("button", { name: /Day 2、/ }).click();
   await expect(page.getByRole("heading", { name: "be動詞 am / are / is" })).toBeVisible();
   await page.getByRole("button", { name: "3問の練習へ進む" }).click();
