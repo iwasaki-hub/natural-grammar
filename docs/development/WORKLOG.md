@@ -1,5 +1,12 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — PR Preview / main Productionへの変更
+
+- GitHub ActionsをPR作成・更新時のPreviewと、main push時のProductionに分岐。品質チェックとWeb exportを両方の前提にする。
+- フォークPRはEXPO_TOKENを渡さないようスキップ。手動実行ではデプロイしない。
+- 実際のActions実行・Production URLは未検証。featureブランチでPRを作成し、マージは承認待ち。
+- 詳細: [EAS Hosting自動デプロイ](eas-hosting-auto-deploy.md)。
+
 ## 2026-11-22 — Expo Hosting 自動デプロイ設定（PR作成前）
 
 - main の `app.json` に EAS project ID `efa59e21-db3f-4725-aa0b-d713d08fc946` と owner `masa-practice` が反映済みであることを確認。
