@@ -1,5 +1,13 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — Expo Hosting 自動デプロイ設定（PR作成前）
+
+- main の `app.json` に EAS project ID `efa59e21-db3f-4725-aa0b-d713d08fc946` と owner `masa-practice` が反映済みであることを確認。
+- `main` push / 手動起動のWebプレビュー自動デプロイWorkflowをfeatureブランチに追加。品質チェック・Web exportを通過してから `eas deploy --non-interactive` を実行する。
+- 必要なGitHub Actions secret `EXPO_TOKEN` は未確認。ユーザー側設定が必要。
+- GitHub Actions実行・実際の自動デプロイは未検証。PRを作成し、明示的なマージ指示を待つ。
+- 手順: [Expo Hosting 自動デプロイ](eas-hosting-auto-deploy.md)。
+
 記録方針: 完了した事実、根拠、検証結果、未確認事項を区別する。詳細な技術判断は各Foundation文書を参照し、ここでは時系列の要点だけ記録する。
 
 ## 2026-11-22 — EAS プロジェクト設定
