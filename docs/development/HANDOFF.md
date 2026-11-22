@@ -10,15 +10,16 @@
 ## 実装状態
 - Foundation 1: TypeScript / ESLintのCI。
 - Foundation 2-1: Day 4サンプルのホーム画面を実装（PR #4マージ）。
-- Foundation 2-2: ホームから解説への画面遷移と現在形の解説画面をfeatureブランチで実装。PRの検証・マージは別途確認。
+- Foundation 2-2: ホームから解説への画面遷移と現在形の解説画面を実装（PR #8マージ済み）。
+- Foundation 2-3: 解説から練習への遷移と3問のサンプル練習、誤答時ヒント・再挑戦・練習終了画面をfeatureブランチで実装。PRの検証・マージは別途確認。
 - EAS Hosting: PR作成・更新でPreview、mainへのpushでProduction（PR #7マージ済み）。EXPO_TOKENはGitHub Repository secret。公開URLはActionsログで確認。
 
 ## 対象外・注意
-- 解説・練習・まとめ・AIヒントのうち、練習以降は未実装。
+- まとめ・AIヒントは未実装。練習はサンプル3問のみ。
 - 進捗値はサンプル。完了処理、永続化、認証、API連携なし。
 - npm audit moderate 3件、ESLint 9.39.5警告は未調査。
 - iPhoneの文字拡大・VoiceOver・ネイティブ動作は未確認。
-- [Foundation 2-2の範囲・検証](foundation-2-2.md)、[作業履歴](WORKLOG.md)を参照。
+- [Foundation 2-3の範囲・検証](foundation-2-3.md)、[作業履歴](WORKLOG.md)を参照。
 
 ## 再開手順
 1. 最新main・未マージPR・AGENTS.mdを確認。
