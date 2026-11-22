@@ -1,5 +1,12 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — URL共有用OGP対応
+
+- Expo Routerの`src/app/+html.tsx`にOGP title/description/image/url、画像サイズ、X large image card、descriptionを追加。
+- `scripts/generate-brand-assets.cjs`に1200×630のOGP画像生成処理を追加。Node標準機能のみで`public/og-image.png`を生成し、`postinstall`とWeb exportで配信。
+- Production URLをOGPの正規URLと画像URLに設定。SNSキャッシュ・LINE等での表示はマージ後の実地確認が必要。
+- 品質チェック・Preview成功後、ユーザーの明示承認に従いSquashマージする。
+
 ## 2026-11-22 — iPhoneホーム画面用Webアイコン
 
 - `src/app/+html.tsx` にApple Touch Icon、Web App Manifest、iOSホーム画面向けメタタグを追加。Expo SDK 58の`useServerDocumentContext()`で生成されたhead/bodyノードを維持。
