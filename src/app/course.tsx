@@ -16,7 +16,7 @@ export default function CourseScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={["top", "bottom"]}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Pressable accessibilityRole="button" onPress={() => router.back()} style={styles.back}>
+        <Pressable accessibilityRole="button" onPress={() => router.replace("/")} style={styles.back}>
           <Text style={styles.backText}>← 戻る</Text>
         </Pressable>
         <View style={styles.header}>
