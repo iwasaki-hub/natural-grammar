@@ -6,6 +6,7 @@
 - React Navigationの既存タブ画面・遷移を維持し、WebのみカスタムTabBarを使用。280msのアニメーション、透過白・ぼかし・白い縁・控えめな影を設定。
 - 既存の下部Safe Area余白、タブのアクセシビリティラベルと選択状態を維持し、Expo Routerの型付き遷移を利用。ネイティブのタブ表示は変更なし。
 - 初回CIの型チェックで `BottomTabBarProps` に `navigation` がないTS2339が発生。Expo Routerの `router.navigate` を使う実装へ修正。
+- 2回目CIでは型チェック成功後、React Hooks lintの `react-hooks/refs` が失敗。`useRef(...).current` のrender中参照を `useState(() => new Animated.Value(...))` に変更。
 - PR品質チェックとPreviewを確認し、iPhone Safari実機でタブの位置・動き・ラベル切れを確認すること。自動マージは行わない。
 
 ## 2026-11-22 — URL共有用OGP対応
