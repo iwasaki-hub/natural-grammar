@@ -49,11 +49,11 @@ function ellipse(img, cx, cy, rx, ry, color) {
       pixel(img, x, y, color);
   }
 }
-function drawMark(img, ox, oy, size) {
+function drawMark(img, ox, oy, size, onLight = false) {
   const p = ([x, y]) => [ox + x * size / 1024, oy + y * size / 1024];
   const poly = (points, color) => polygon(img, points.map(p), color);
-  poly([[160,565],[275,540],[450,580],[510,660],[510,850],[430,785],[300,745],[160,760]], C.cream);
-  poly([[864,565],[749,540],[574,580],[514,660],[514,850],[594,785],[724,745],[864,760]], C.cream);
+  poly([[160,565],[275,540],[450,580],[510,660],[510,850],[430,785],[300,745],[160,760]], onLight ? C.teal : C.cream);
+  poly([[864,565],[749,540],[574,580],[514,660],[514,850],[594,785],[724,745],[864,760]], onLight ? C.teal : C.cream);
   poly([[165,790],[300,775],[440,810],[512,880],[584,810],[724,775],[859,790],[859,850],[724,825],[584,860],[512,925],[440,860],[300,825],[165,850]], C.peach);
   ellipse(img, ox + 448*size/1024, oy + 474*size/1024, 60*size/1024, 65*size/1024, C.mint);
   ellipse(img, ox + 576*size/1024, oy + 474*size/1024, 60*size/1024, 65*size/1024, C.mint);
@@ -94,7 +94,7 @@ const icon = canvas(1024, 1024, C.teal);
 drawMark(icon, 0, 0, 1024);
 writePng("icon.png", icon);
 const splash = canvas(1200, 1200, C.cream);
-drawMark(splash, 300, 300, 600);
+drawMark(splash, 300, 300, 600, true);
 writePng("splash.png", splash);
 const foreground = canvas(1024, 1024, C.teal);
 drawMark(foreground, 128, 128, 768);
