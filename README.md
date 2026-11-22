@@ -6,6 +6,12 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 [「今日の一歩」— iPhone向け初期版UI](docs/design/first-step.md)
 
+## Development status
+
+- [Current handoff and next steps](docs/development/HANDOFF.md)
+- [Development worklog](docs/development/WORKLOG.md)
+- [Foundation 1 quality checks](docs/development/foundation-1.md)
+
 ## Get started
 
 1. Install dependencies
