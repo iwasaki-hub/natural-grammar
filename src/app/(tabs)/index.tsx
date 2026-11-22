@@ -17,10 +17,10 @@ const lesson = {
 };
 
 export default function HomeScreen() {
-  const { day4Completed } = useLessonProgress();
+  const { day4Completed, progressLoaded } = useLessonProgress();
   const { design, colors } = useDesign();
   const styles = useMemo(() => createStyles(colors, design), [colors, design]);
-  const completedDays = lesson.completedDays + (day4Completed ? 1 : 0);
+  const completedDays = lesson.completedDays + (progressLoaded && day4Completed ? 1 : 0);
   const progress = (completedDays / lesson.totalDays) * 100;
 
   return (
@@ -89,7 +89,7 @@ export default function HomeScreen() {
           >
             <Text style={styles.disabledActionText}>レッスンを始める</Text>
           </Pressable>
-          <Text style={styles.comingSoon}>解説・練習・まとめに進めます。進捗はこの起動中だけ反映されます。</Text>
+          <Text style={styles.comingSoon}>解説・練習・まとめに進めます。完了したレッスンはこのブラウザに保存されます。</Text>
         </View>
 
         <View style={styles.achievementCard}>
@@ -99,7 +99,7 @@ export default function HomeScreen() {
           <View style={styles.achievementBody}>
             <Text style={styles.sectionLabel}>できるようになったこと</Text>
             <Text style={styles.achievementText}>{day4Completed ? "毎日の習慣を英語で言える" : lesson.achievement}</Text>
-            <Text style={styles.sampleLabel}>{day4Completed ? "Day 4 完了（この起動中のみ）" : "サンプル表示"}</Text>
+            <Text style={styles.sampleLabel}>{day4Completed ? "Day 4 完了（保存済み）" : "サンプル表示"}</Text>
           </View>
         </View>
       </ScrollView>

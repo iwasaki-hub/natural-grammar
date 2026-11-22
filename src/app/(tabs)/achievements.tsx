@@ -8,8 +8,8 @@ import { useLessonProgress } from "../../context/LessonProgressContext";
 export default function AchievementsScreen() {
   const { colors } = useDesign();
   const styles = useMemo(() => createStyles(colors), [colors]);
-  const { day4Completed } = useLessonProgress();
-  const completedDays = day4Completed ? 4 : 3;
+  const { day4Completed, progressLoaded } = useLessonProgress();
+  const completedDays = progressLoaded && day4Completed ? 4 : 3;
   return (
     <TabPage title="成長記録" subtitle="積み重ねた一歩を、言葉にして振り返ろう。">
       <TabCard pale>
@@ -18,7 +18,7 @@ export default function AchievementsScreen() {
         <View style={styles.track} accessibilityRole="progressbar" accessibilityLabel="サンプルコース進捗" accessibilityValue={{ min: 0, max: 30, now: completedDays }}>
           <View style={[styles.fill, { width: `${(completedDays / 30) * 100}%` }]} />
         </View>
-        <Text style={styles.note}>サンプル進捗です。Day 4完了時のみ、この起動中に更新されます。</Text>
+        <Text style={styles.note}>サンプル進捗です。Day 4完了後はこのブラウザに保存されます。</Text>
       </TabCard>
       <TabCard>
         <Text style={styles.label}>できるようになったこと</Text>
@@ -50,7 +50,7 @@ export default function AchievementsScreen() {
         )}
       </TabCard>
       <Text style={styles.note}>
-        ※ 過去の学習履歴はまだ保存されません。ブラウザの再読み込み・アプリ再起動でこの画面の完了状態はリセットされます。
+        ※ 現在はDay 4の完了のみ、このブラウザに保存されます。ほかの端末とは同期されません。
       </Text>
     </TabPage>
   );
