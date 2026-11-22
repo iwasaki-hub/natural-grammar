@@ -1,5 +1,26 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — ガラススライドの滑らかさを改善
+
+- ユーザー要望に合わせて固定420msのtimingから `Animated.spring` に変更。stiffness 135、damping 24、mass 1、overshootClampingを指定し、自然な加減速と停止を目指す。
+- 連続タップでもアニメーション値を使い回して次の選択位置へ滑らかに移動する。ガラスの視認性・タブ配置・Safe Areaは維持。
+- iPhone Safariの実機動作と連続タップはPreviewで要確認。PRは未マージ。
+
+## 2026-11-22 — ガラススライドの視認性を改善
+
+- ユーザーの追加要望に合わせて、選択ピルの白い透過面を0.76へ、枠を2pxへ強調。背景バーは薄いミント色へ変更し、選択面との差を拡大。
+- ぼかしを24px、影をティール系に強化。移動時間を280msから420msへ変更し、横に滑る様子を追いやすくした。
+- 既存4タブのレイアウト、下部Safe Area、画面遷移は維持。iPhone Safariでの見え方はPreview実機確認が必要。
+
+## 2026-11-22 — スライドする透明ガラスタブ（Web版）
+
+- 参考画像の「半透明の角丸ピルが選択タブへ滑る」動きを、iPhone Safari向けの4タブに反映。
+- React Navigationの既存タブ画面・遷移を維持し、WebのみカスタムTabBarを使用。280msのアニメーション、透過白・ぼかし・白い縁・控えめな影を設定。
+- 既存の下部Safe Area余白、タブのアクセシビリティラベルと選択状態を維持し、Expo Routerの型付き遷移を利用。ネイティブのタブ表示は変更なし。
+- 初回CIの型チェックで `BottomTabBarProps` に `navigation` がないTS2339が発生。Expo Routerの `router.navigate` を使う実装へ修正。
+- 2回目CIでは型チェック成功後、React Hooks lintの `react-hooks/refs` が失敗。`useRef(...).current` のrender中参照を `useState(() => new Animated.Value(...))` に変更。
+- PR品質チェックとPreviewを確認し、iPhone Safari実機でタブの位置・動き・ラベル切れを確認すること。自動マージは行わない。
+
 ## 2026-11-22 — URL共有用OGP対応
 
 - Expo Routerの`src/app/+html.tsx`にOGP title/description/image/url、画像サイズ、X large image card、descriptionを追加。
