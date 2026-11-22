@@ -12,7 +12,7 @@ const colors = {
   peach: "#FFE7D4",
 } as const;
 
-// Foundation 2-2: sample Day 4 lesson, without completion or persistence.
+// Foundation 2: sample Day 4 lesson, without completion or persistence.
 export default function LessonScreen() {
   return (
     <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
@@ -33,7 +33,7 @@ export default function LessonScreen() {
         <View style={styles.stageCard}>
           <Text style={styles.stageLabel}>今日の学習ステップ</Text>
           <Text style={styles.stageText}>① 解説（いまここ）　→　② 練習　→　③ まとめ</Text>
-          <Text style={styles.smallText}>練習・まとめは次の開発段階で追加します。</Text>
+          <Text style={styles.smallText}>練習では3問に挑戦できます。まとめは準備中です。</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.sectionTitle} accessibilityRole="header">まずは、この英文から</Text>
@@ -59,12 +59,12 @@ export default function LessonScreen() {
           <Text style={styles.body}>I drink / She drinks。まずは主語と動詞の組み合わせを声に出して読んでみましょう。</Text>
         </View>
         <Pressable
-          onPress={() => router.back()}
+          onPress={() => router.push("/practice")}
           style={({ pressed }) => [styles.action, pressed && { opacity: 0.8 }]}
           accessibilityRole="button"
-          accessibilityLabel="解説を閉じてホームに戻る"
+          accessibilityLabel="英文法の練習問題へ進む"
         >
-          <Text style={styles.actionText}>ホームに戻る</Text>
+          <Text style={styles.actionText}>練習問題へ進む</Text>
         </Pressable>
         <Text style={styles.smallText}>※ サンプル教材です。学習完了や進捗はまだ記録されません。</Text>
       </ScrollView>
