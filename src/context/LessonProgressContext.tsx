@@ -41,6 +41,9 @@ function writeCompletedDays(days: number[]) {
 
 type LessonProgress = {
   completedDays: readonly number[];
+  isPracticePassed: (day: number) => boolean;
+  markDayPracticePassed: (day: number) => void;
+  completeDay: (day: number) => void;
   isDayCompleted: (day: number) => boolean;
   day4Completed: boolean;
   practicePassed: boolean;
@@ -56,6 +59,7 @@ const LessonProgressContext = createContext<LessonProgress | null>(null);
 
 export function LessonProgressProvider({ children }: { children: ReactNode }) {
   const [completedDays, setCompletedDays] = useState<number[]>([]);
+  const [passedDays, setPassedDays] = useState<number[]>([]);
   const [practicePassed, setPracticePassed] = useState(false);
   const [day1PracticePassed, setDay1PracticePassed] = useState(false);
   const [progressLoaded, setProgressLoaded] = useState(Platform.OS !== "web");
@@ -75,6 +79,16 @@ export function LessonProgressProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       completedDays,
+      isPracticePassed: (day: number) => passedDays.includes(day),
+      markDayPracticePassed: (day: number) => {
+        if (validDay(day) && day !== 1 && day !== 4) setPassedDays((days) => days.includes(day) ? days : [...days, day]);
+      },
+      completeDay: (day: number) => {
+        if (!validDay(day) || day === 1 || day === 4 || !passedDays.includes(day) || !progressLoaded || completedDays.includes(day)) return;
+        const next = normalizeDays([...completedDays, ...readCompletedDays(), day]);
+        writeCompletedDays(next);
+        setCompletedDays(next);
+      },
       isDayCompleted: (day: number) => validDay(day) && completedDays.includes(day),
       day4Completed: completedDays.includes(4),
       practicePassed,
@@ -96,7 +110,7 @@ export function LessonProgressProvider({ children }: { children: ReactNode }) {
         setCompletedDays(next);
       },
     }),
-    [completedDays, practicePassed, day1PracticePassed, progressLoaded],
+    [completedDays, passedDays, practicePassed, day1PracticePassed, progressLoaded],
   );
   return <LessonProgressContext.Provider value={value}>{children}</LessonProgressContext.Provider>;
 }
