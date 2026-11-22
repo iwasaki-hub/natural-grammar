@@ -1,5 +1,13 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — iPhoneホーム画面用Webアイコン
+
+- `src/app/+html.tsx` にApple Touch Icon、Web App Manifest、iOSホーム画面向けメタタグを追加。Expo SDK 58の`useServerDocumentContext()`で生成されたhead/bodyノードを維持。
+- `public/manifest.webmanifest` を追加。`standalone`、アプリ名、テーマ色、192px/512pxアイコンを設定。
+- 既存のブランドPNG生成スクリプトに180px Apple Touch IconとWeb用192px/512pxアイコンを追加。`npm ci` のpostinstallで`public/`に生成しExpo Web Exportに含める。
+- iPhone Safariの「ホーム画面に追加」で表示確認すること。既存ショートカットは再追加が必要な場合がある。
+- PRのTypeScript/ESLint/Expo Hosting Preview成功後にユーザーの事前承認に従いSquashマージする。
+
 ## 2026-11-22 — コバルトブルーのブランド画像案を保存
 
 - 生成したアイコンとスプラッシュ画面の原本を `docs/design/images/` に追加し、[設計資料](../design/first-step.md#ブランド画像案)から参照できるようにした。
