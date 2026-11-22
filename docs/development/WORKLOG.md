@@ -2,6 +2,11 @@
 
 記録方針: 完了した事実、根拠、検証結果、未確認事項を区別する。詳細な技術判断は各Foundation文書を参照し、ここでは時系列の要点だけ記録する。
 
+## 2026-11-22 — EAS プロジェクト設定
+
+- 変更: `app.json` に EAS のプロジェクト ID と所有者、Expo Router の Web 向け `asyncRoutes` 設定を追加。
+- ローカル検証: `npx tsc --noEmit` と `npm run lint` は終了コード 0。PowerShell の npm / npx ランチャーはユーザー領域へのアクセス警告を出力した。
+
 ## 2026-11-22 — Foundation 1: ESLint依存関係の固定
 
 - PR: [#2](https://github.com/iwasaki-hub/natural-grammar/pull/2)
