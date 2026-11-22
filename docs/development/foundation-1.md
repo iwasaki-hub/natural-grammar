@@ -2,22 +2,26 @@
 
 ## 目的
 
-Expo SDK 58 / TypeScript プロジェクトの型チェックと ESLint を GitHub Actions で自動実行する。`docs/design/` のデザイン原案と画面モックは変更しない。
+Expo SDK 58 / TypeScript プロジェクトの型チェックと ESLint を GitHub Actions で自動実行する。\`docs/design/\` のデザイン原案と画面モックは変更しない。
 
 ## 実行方法
 
-```bash
+\`\`\`bash
 npm ci
 npx tsc --noEmit
-npm install --no-save --package-lock=false eslint@^9 eslint-config-expo
 npm run lint
-```
+\`\`\`
 
-`npm run lint` は `expo lint` を実行する。GitHub Actions は `main` への push、PR、手動実行でチェックする。
+\`npm run lint\` は `expo lint` を実行する。GitHub Actions は `main` への push、PR、手動実行でチェックする。
 
-## 既知の制約と次の作業
+## ESLint依存関係
 
-- 現時点ではネットワーク制限で ESLint の依存関係をローカルで取得できず、lint の実行結果は未検証。
-- CI では一時的に ESLint ツールを追加インストールしているため、バージョンが完全固定されていない。
-- 通信可能な環境で `npx expo lint` に必要な `eslint` と `eslint-config-expo` を `devDependencies` に追加し、`package-lock.json` を更新してコミットする。その後 CI の一時インストール手順を削除し、`npm ci` のみで実行できる状態にする。
-- CI の緑判定と iPhone Expo Go の実機動作は別々に確認する。
+\`eslint\` と `eslint-config-expo\` を `devDependencies\` に追加し、`package-lock.json\` に解決済みバージョンを記録した。CIは追加インストールを行わず、`npm ci\` のみで依存関係を再現する。
+
+## 検証記録
+
+- Windows PowerShell実行結果（ユーザー報告、2026-11-22）: `npm ci\`、`npx tsc --noEmit\`、`npm run lint\` 成功。
+- npm監査結果（ユーザー報告）: moderate 3件。原因・影響は未調査。`npm audit fix --force\` は未実行。
+- ESLint 9.39.5の非推奨警告あり。SDK互換性と更新先は別途検討する。
+- GitHub Actionsによる更新後のCI結果: 未確認。PRチェックで確認する。
+- CIの成功とiPhone Expo Go実機動作は別々に確認する。
