@@ -1,3 +1,10 @@
+## 2026-11-22 — Day 4学習進捗のWeb永続保存
+
+- LessonProgressContextにバージョン付きのlocalStorage保存（キー natural-grammar:lesson-progress:v1）を追加。3問正解後の完了ボタンのみがDay 4完了を保存する。
+- SSR初回表示と一致させるため、ブラウザ保存状態は初回描画後に復元。破損データやストレージ利用不可時はメモリ動作を継続。
+- ホーム／成長記録／まとめ／設定の案内を更新。練習途中の状態は保存しない。ログイン、サーバー同期、別端末同期、ネイティブ保存は対象外。
+- 検証: CIのTypeScript/ESLint/Previewを確認し、iPhone SafariでDay 4完了→リロード→4/30保持、ブラウザデータ削除後の初期化を実機確認する。
+
 ## 2026-11-22 — PR #18 CIエラー修正
 
 - 初回CIはQuality checksとExpo Hosting PreviewがLintで失敗。原因はDesignContextのeffect内での同期setState（react-hooks/set-state-in-effect）。
