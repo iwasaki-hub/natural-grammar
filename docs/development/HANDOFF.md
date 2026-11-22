@@ -21,7 +21,7 @@
 
 ## 対象外・注意
 - AIヒントは未実装。練習とまとめはDay 4サンプルのみ。誤答履歴の蓄積・絞り込み復習、外観切り替えも未実装。
-- Day 4完了はWeb版のブラウザlocalStorageに保存（feature PRで検証待ち）。練習途中は一時状態のみ。認証、API連携、端末間同期、ネイティブ保存なし。
+- 学習完了データはDay 1〜30の番号配列としてWeb版localStorageに保存（既存v1形式を維持）。現在実際に完了できる教材はDay 4のみ。Day 1〜3は表示上のサンプル基準値で保存履歴ではない。練習途中は一時状態のみ。認証、API連携、端末間同期、ネイティブ保存なし。
 - npm audit moderate 3件、ESLint 9.39.5警告は未調査。
 - iPhoneの文字拡大・VoiceOver・ネイティブ動作は未確認。
 - [ホーム下部タブの実装と検証](home-tabs.md)、[Foundation 2-4](foundation-2-4.md)、[作業履歴](WORKLOG.md)を参照。
