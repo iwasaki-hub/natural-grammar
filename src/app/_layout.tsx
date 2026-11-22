@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
+import { LessonProgressProvider } from "../context/LessonProgressContext";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return <LessonProgressProvider><Stack screenOptions={{ headerShown: false }} /></LessonProgressProvider>;
 }

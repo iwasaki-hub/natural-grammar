@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLessonProgress } from "../context/LessonProgressContext";
 
 const colors = {
   background: "#FFF9F1",
@@ -13,7 +14,7 @@ const colors = {
   track: "#E8ECE7",
 } as const;
 
-// Foundation 2 uses presentation-only sample data. No persistence or progress updates.
+// Foundation 2 uses sample data; Day 4 completion is held in memory only.
 const lesson = {
   day: 4,
   completedDays: 3,
@@ -25,7 +26,9 @@ const lesson = {
 };
 
 export default function HomeScreen() {
-  const progress = (lesson.completedDays / lesson.totalDays) * 100;
+  const { day4Completed } = useLessonProgress();
+  const completedDays = lesson.completedDays + (day4Completed ? 1 : 0);
+  const progress = (completedDays / lesson.totalDays) * 100;
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
@@ -47,7 +50,7 @@ export default function HomeScreen() {
           <View style={styles.cardHeadingRow}>
             <Text style={styles.sectionLabel}>30日間のコース</Text>
             <Text style={styles.progressCount}>
-              {lesson.completedDays} / {lesson.totalDays} 日
+              {completedDays} / {lesson.totalDays} 日
             </Text>
           </View>
           <View
@@ -57,7 +60,7 @@ export default function HomeScreen() {
             accessibilityValue={{
               min: 0,
               max: lesson.totalDays,
-              now: lesson.completedDays,
+              now: completedDays,
             }}
           >
             <View style={[styles.progressFill, { width: `${progress}%` }]} />
@@ -93,7 +96,7 @@ export default function HomeScreen() {
           >
             <Text style={styles.disabledActionText}>レッスンを始める</Text>
           </Pressable>
-          <Text style={styles.comingSoon}>まずは短い解説を読んでみましょう。練習は準備中です。</Text>
+          <Text style={styles.comingSoon}>解説・練習・まとめに進めます。進捗はこの起動中だけ反映されます。</Text>
         </View>
 
         <View style={styles.achievementCard}>
@@ -102,8 +105,8 @@ export default function HomeScreen() {
           </Text>
           <View style={styles.achievementBody}>
             <Text style={styles.sectionLabel}>できるようになったこと</Text>
-            <Text style={styles.achievementText}>{lesson.achievement}</Text>
-            <Text style={styles.sampleLabel}>サンプル表示</Text>
+            <Text style={styles.achievementText}>{day4Completed ? "毎日の習慣を英語で言える" : lesson.achievement}</Text>
+            <Text style={styles.sampleLabel}>{day4Completed ? "Day 4 完了（この起動中のみ）" : "サンプル表示"}</Text>
           </View>
         </View>
       </ScrollView>

@@ -33,7 +33,7 @@ export default function LessonScreen() {
         <View style={styles.stageCard}>
           <Text style={styles.stageLabel}>今日の学習ステップ</Text>
           <Text style={styles.stageText}>① 解説（いまここ）　→　② 練習　→　③ まとめ</Text>
-          <Text style={styles.smallText}>練習では3問に挑戦できます。まとめは準備中です。</Text>
+          <Text style={styles.smallText}>練習の3問に正解したら、まとめで学びを振り返れます。</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.sectionTitle} accessibilityRole="header">まずは、この英文から</Text>
@@ -66,7 +66,7 @@ export default function LessonScreen() {
         >
           <Text style={styles.actionText}>練習問題へ進む</Text>
         </Pressable>
-        <Text style={styles.smallText}>※ サンプル教材です。学習完了や進捗はまだ記録されません。</Text>
+        <Text style={styles.smallText}>※ サンプル教材です。進捗はアプリ起動中のみ反映されます。</Text>
       </ScrollView>
     </SafeAreaView>
   );
