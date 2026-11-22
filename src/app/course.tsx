@@ -29,9 +29,9 @@ export default function CourseScreen() {
           <Text style={styles.hint}>○ 準備中</Text>
         </View>
         {days.map((day) => {
-          const available = day === 4;
+          const available = day === 1 || day === 4;
           const completed = progressLoaded && isDayCompleted(day);
-          const label = day === 4 ? "一般動詞の現在形" : "レッスン準備中";
+          const label = day === 1 ? "主語と動詞の基本" : day === 4 ? "一般動詞の現在形" : "レッスン準備中";
           return (
             <Pressable
               key={day}
@@ -39,7 +39,7 @@ export default function CourseScreen() {
               accessibilityLabel={`Day ${day}、${label}、${completed ? "完了済み" : available ? "学習できる" : "準備中"}`}
               accessibilityState={{ disabled: !available }}
               disabled={!available}
-              onPress={() => router.push("/lesson")}
+              onPress={() => router.push(day === 1 ? "/day1-lesson" : "/lesson")}
               style={({ pressed }) => [styles.card, pressed && styles.pressed]}
             >
               <View style={[styles.dayIcon, completed && styles.completedIcon, available && !completed && styles.availableIcon]}>
@@ -54,7 +54,7 @@ export default function CourseScreen() {
             </Pressable>
           );
         })}
-        <Text style={styles.footnote}>Day 1〜3のホーム画面の進捗はサンプル表示です。ここでは実際に保存された完了状態のみ表示します。</Text>
+        <Text style={styles.footnote}>ホーム画面の3日分は従来のサンプル進捗です。この一覧の完了表示は実際に保存された記録に基づきます。</Text>
       </ScrollView>
     </SafeAreaView>
   );
