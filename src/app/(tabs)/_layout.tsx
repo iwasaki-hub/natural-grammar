@@ -39,9 +39,16 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
   const itemWidth = count ? barWidth / count : 0;
 
   useEffect(() => {
-    Animated.timing(position, {
+    // Spring motion glides between tabs and keeps momentum when tapped rapidly.
+    // No overshoot: the glass stops precisely under the selected tab.
+    Animated.spring(position, {
       toValue: state.index,
-      duration: 420,
+      stiffness: 135,
+      damping: 24,
+      mass: 1,
+      overshootClamping: true,
+      restDisplacementThreshold: 0.001,
+      restSpeedThreshold: 0.001,
       useNativeDriver: true,
     }).start();
   }, [position, state.index]);
