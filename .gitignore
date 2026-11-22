@@ -44,3 +44,8 @@ example
 
 # Generated Natural Grammar brand assets (postinstall)
 /assets/branding/*.png
+
+# Generated web install icons (postinstall)
+/public/apple-touch-icon.png
+/public/icon-192.png
+/public/icon-512.png
