@@ -1,18 +1,9 @@
+import { useMemo } from "react";
+import { useDesign, palettes } from "../../context/DesignContext";
 import { router } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLessonProgress } from "../../context/LessonProgressContext";
-
-const colors = {
-  background: "#FFF9F1",
-  surface: "#FFFFFF",
-  ink: "#243B38",
-  muted: "#61736D",
-  primary: "#237A6D",
-  paleGreen: "#E4F3E9",
-  peach: "#FFE7D4",
-  track: "#E8ECE7",
-} as const;
 
 // Foundation 2 uses sample data; Day 4 completion is held in memory only.
 const lesson = {
@@ -27,6 +18,8 @@ const lesson = {
 
 export default function HomeScreen() {
   const { day4Completed } = useLessonProgress();
+  const { design, colors } = useDesign();
+  const styles = useMemo(() => createStyles(colors, design), [colors, design]);
   const completedDays = lesson.completedDays + (day4Completed ? 1 : 0);
   const progress = (completedDays / lesson.totalDays) * 100;
 
@@ -114,7 +107,8 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(colors: (typeof palettes)["pop"] | (typeof palettes)["simple"], design: "pop" | "simple") {
+  return StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.background },
   content: {
     paddingHorizontal: 22,
@@ -136,7 +130,7 @@ const styles = StyleSheet.create({
   subtitle: { color: colors.muted, fontSize: 15, lineHeight: 24 },
   progressCard: {
     backgroundColor: colors.surface,
-    borderRadius: 24,
+    borderRadius: design === "simple" ? 16 : 24,
     padding: 22,
     gap: 16,
   },
@@ -163,7 +157,7 @@ const styles = StyleSheet.create({
   supportingText: { color: colors.muted, fontSize: 13, lineHeight: 21 },
   lessonCard: {
     backgroundColor: colors.peach,
-    borderRadius: 28,
+    borderRadius: design === "simple" ? 16 : 28,
     padding: 22,
     gap: 14,
   },
@@ -240,3 +234,4 @@ const styles = StyleSheet.create({
   achievementText: { color: colors.ink, fontSize: 14, lineHeight: 23 },
   sampleLabel: { color: colors.muted, fontSize: 12 },
 });
+}
