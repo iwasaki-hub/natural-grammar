@@ -43,7 +43,7 @@ export default function CourseScreen() {
               style={({ pressed }) => [styles.card, pressed && styles.pressed]}
             >
               <View style={[styles.dayIcon, completed && styles.completedIcon, available && !completed && styles.availableIcon]}>
-                <Text style={[styles.dayNumber, (available || completed) && styles.activeNumber]}>{day}</Text>
+                <Text style={[styles.dayNumber, completed && styles.activeNumber, available && !completed && styles.availableNumber]}>{day}</Text>
               </View>
               <View style={styles.cardBody}>
                 <Text style={styles.dayLabel}>DAY {day}</Text>
@@ -79,6 +79,7 @@ function createStyles(colors: (typeof palettes)["pop"] | (typeof palettes)["simp
     availableIcon: { backgroundColor: colors.primary },
     dayNumber: { color: colors.muted, fontSize: 17, fontWeight: "800" },
     activeNumber: { color: colors.ink },
+    availableNumber: { color: colors.surface },
     cardBody: { flex: 1, gap: 4 },
     dayLabel: { color: colors.primary, fontSize: 11, fontWeight: "800", letterSpacing: 1 },
     lessonTitle: { color: colors.ink, fontSize: 16, fontWeight: "800" },
