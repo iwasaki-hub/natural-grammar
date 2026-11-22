@@ -2,6 +2,10 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## App design
+
+[「今日の一歩」— iPhone向け初期版UI](docs/design/first-step.md)
+
 ## Get started
 
 1. Install dependencies
