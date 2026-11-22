@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, router } from "expo-router";
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import { Animated, Platform, Pressable, Text, View, type ColorValue, type ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -30,7 +30,7 @@ type TabBarProps = Parameters<NonNullable<ComponentProps<typeof Tabs>["tabBar"]>
 
 // A single frosted-glass selection slides under the active tab, rather than
 // fading separate selected backgrounds in and out.
-function SlidingGlassTabBar({ state, descriptors, navigation }: TabBarProps) {
+function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
   const insets = useSafeAreaInsets();
   const bottomInset = Math.max(insets.bottom, 12);
   const [barWidth, setBarWidth] = useState(0);
@@ -107,10 +107,13 @@ function SlidingGlassTabBar({ state, descriptors, navigation }: TabBarProps) {
             accessibilityState={{ selected: focused }}
             accessibilityLabel={options.tabBarAccessibilityLabel ?? content.label}
             onPress={() => {
-              const event = navigation.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
-              if (!focused && !event.defaultPrevented) navigation.navigate(route.name, route.params);
+              if (!focused) {
+                if (route.name === "index") router.navigate("/");
+                else if (route.name === "review") router.navigate("/review");
+                else if (route.name === "achievements") router.navigate("/achievements");
+                else if (route.name === "settings") router.navigate("/settings");
+              }
             }}
-            onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })}
             style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: 1, zIndex: 1 }}
           >
             <TabIcon glyph={content.glyph} color={color} />
