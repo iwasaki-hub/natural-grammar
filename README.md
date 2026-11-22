@@ -61,6 +61,8 @@ Expo Routerの括弧付きグループはURLに影響しないため、既存の
 
 `npm ci` / `npm install` 後の `postinstall` で `node scripts/generate-brand-assets.cjs` が実行され、`assets/branding/` にアプリアイコン（1024×1024）、スプラッシュ画像（1200×1200）、Android adaptive icon、favicon（64×64）のPNGを生成します。ソースは `scripts/generate-brand-assets.cjs` で、生成PNGはGit管理対象外です。Expo設定は `app.json` にあります。インストールスクリプトを無効にした場合は、Expo起動前に生成コマンドを手動実行してください。
 
+Web版のiPhoneホーム画面用アイコンも自動生成します。`public/apple-touch-icon.png`（180×180）、`public/icon-192.png`、`public/icon-512.png` と `public/manifest.webmanifest` を使い、`src/app/+html.tsx` でSafari用メタタグを出力します。iPhone Safariでサイトを開き、共有 →「ホーム画面に追加」でアイコンを確認できます。古いショートカットは削除して追加し直してください。
+
 ## デプロイ
 GitHub Pull RequestでExpo Hosting Preview、`main`へのマージでProductionデプロイ。マージは明示的な承認後に実施します。
 

@@ -5,6 +5,7 @@ const path = require("node:path");
 const zlib = require("node:zlib");
 
 const ROOT = path.join(__dirname, "..", "assets", "branding");
+const PUBLIC = path.join(__dirname, "..", "public");
 const C = {
   teal: [18, 109, 101],
   cream: [255, 249, 241],
@@ -73,7 +74,7 @@ function chunk(type, data) {
   const crc = Buffer.alloc(4); crc.writeUInt32BE(crc32(Buffer.concat([name, data])));
   return Buffer.concat([len, name, data, crc]);
 }
-function writePng(name, img) {
+function writePng(name, img, outputDir = ROOT) {
   const raw = Buffer.alloc((img.w * 4 + 1) * img.h);
   for (let y = 0; y < img.h; y++) {
     const off = y * (img.w * 4 + 1);
@@ -87,8 +88,8 @@ function writePng(name, img) {
     Buffer.from([137,80,78,71,13,10,26,10]),
     chunk("IHDR", ihdr), chunk("IDAT", zlib.deflateSync(raw, { level: 9 })), chunk("IEND", Buffer.alloc(0))
   ]);
-  fs.mkdirSync(ROOT, { recursive: true });
-  fs.writeFileSync(path.join(ROOT, name), png);
+  fs.mkdirSync(outputDir, { recursive: true });
+  fs.writeFileSync(path.join(outputDir, name), png);
 }
 const icon = canvas(1024, 1024, C.teal);
 drawMark(icon, 0, 0, 1024);
@@ -102,4 +103,15 @@ writePng("adaptive-icon.png", foreground);
 const favicon = canvas(64, 64, C.teal);
 drawMark(favicon, 0, 0, 64);
 writePng("favicon.png", favicon);
+// Files in public/ are copied to the Expo Hosting web output unchanged.
+// The Apple touch icon must be a real PNG served at a stable absolute URL.
+const appleTouchIcon = canvas(180, 180, C.teal);
+drawMark(appleTouchIcon, 0, 0, 180);
+writePng("apple-touch-icon.png", appleTouchIcon, PUBLIC);
+const webIcon = canvas(192, 192, C.teal);
+drawMark(webIcon, 0, 0, 192);
+writePng("icon-192.png", webIcon, PUBLIC);
+const webIconLarge = canvas(512, 512, C.teal);
+drawMark(webIconLarge, 0, 0, 512);
+writePng("icon-512.png", webIconLarge, PUBLIC);
 console.log("Generated Natural Grammar branding PNG assets.");
