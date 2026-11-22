@@ -1,5 +1,13 @@
 # Natural Grammar — 作業履歴
 
+## 2026-11-22 — Expo Router構成と初期テンプレート整理
+
+- 公式Expo Router notationに従い、学習3画面を `(learning)` ルートグループへ移動。URL `/lesson`, `/practice`, `/summary` は維持。
+- `+not-found.tsx` を追加し、Expo標準の不明URL表示を置き換え。
+- `README.md` の create-expo-app 初期文言をNatural Grammar向けに全面更新。
+- `app.json` の初期スプラッシュ画像・初期アイコン参照を削除し、スプラッシュ背景をブランド色に変更。専用画像アセットは未制作。
+- GitHub Actionsの品質チェック・Previewデプロイ結果はPR作成後に確認。iPhone実機未確認。
+
 ## 2026-11-22 — Foundation 2-4
 
 - Day 4練習3問の正解後にまとめ画面へ遷移し、学習ポイントを表示。
