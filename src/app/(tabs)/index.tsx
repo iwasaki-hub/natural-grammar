@@ -8,7 +8,7 @@ import { useLessonProgress } from "../../context/LessonProgressContext";
 // Days 1–3 are sample baseline data; subsequent completions come from saved progress.
 const lesson = {
   day: 4,
-  completedDays: 3,
+  completedDays: 0,
   totalDays: 30,
   minutes: 10,
   title: "一般動詞の現在形",
@@ -20,7 +20,7 @@ export default function HomeScreen() {
   const { day4Completed, completedDays: savedDays, progressLoaded } = useLessonProgress();
   const { design, colors } = useDesign();
   const styles = useMemo(() => createStyles(colors, design), [colors, design]);
-  const completedDays = lesson.completedDays + (progressLoaded ? savedDays.filter((day) => day > 3).length : 0);
+  const completedDays = progressLoaded ? savedDays.length : 0;
   const progress = (completedDays / lesson.totalDays) * 100;
 
   return (
