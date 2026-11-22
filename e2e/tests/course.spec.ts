@@ -1,5 +1,11 @@
 import { expect, test } from "@playwright/test";
 
+test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status === testInfo.expectedStatus) return;
+  const snapshot = await page.locator("body").innerText().catch(() => "(body unavailable)");
+  console.log(`[E2E diagnostic] browser=${testInfo.project.name} url=${page.url()} body=${snapshot.slice(0, 1800)}`);
+});
+
 test("ホームから30日間のレッスン一覧へ移動し、戻るでホームに戻れる", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "30日間のレッスン一覧を見る" }).click();
