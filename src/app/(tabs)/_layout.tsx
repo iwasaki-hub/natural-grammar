@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Text } from "react-native";
+import { Text, type ColorValue } from "react-native";
 
 const colors = {
   background: "#FFF9F1",
@@ -9,7 +9,7 @@ const colors = {
   border: "#D9E4DE",
 } as const;
 
-function TabIcon({ glyph, color }: { glyph: string; color: string }) {
+function TabIcon({ glyph, color }: { glyph: string; color: ColorValue }) {
   return (
     <Text accessibilityElementsHidden style={{ color, fontSize: 24, lineHeight: 28, fontWeight: "700" }}>
       {glyph}
