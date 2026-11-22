@@ -15,7 +15,7 @@ const colors = {
 } as const;
 
 export default function SummaryScreen() {
-  const { practicePassed, day4Completed, completeDay4 } = useLessonProgress();
+  const { practicePassed, day4Completed, completeDay4, completedDays } = useLessonProgress();
 
   function finish() {
     if (!practicePassed) return;
@@ -65,9 +65,9 @@ export default function SummaryScreen() {
             </View>
             <View style={styles.progressCard}>
               <Text style={styles.sectionTitle}>30日間のコース</Text>
-              <Text style={styles.progressCount}>{day4Completed ? "4 / 30 日" : "3 / 30 日 → 4 / 30 日"}</Text>
-              <View style={styles.track} accessibilityRole="progressbar" accessibilityLabel="コースのサンプル進捗" accessibilityValue={{ min: 0, max: 30, now: day4Completed ? 4 : 3 }}>
-                <View style={[styles.fill, { width: `${((day4Completed ? 4 : 3) / 30) * 100}%` }]} />
+              <Text style={styles.progressCount}>{completedDays.length} / 30 日</Text>
+              <View style={styles.track} accessibilityRole="progressbar" accessibilityLabel="コースの進捗" accessibilityValue={{ min: 0, max: 30, now: completedDays.length }}>
+                <View style={[styles.fill, { width: `${(completedDays.length / 30) * 100}%` }]} />
               </View>
               <Text style={styles.smallText}>レッスン完了ボタンで進捗を更新し、このブラウザに保存します。</Text>
             </View>

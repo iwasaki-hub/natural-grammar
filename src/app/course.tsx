@@ -4,6 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDesign, palettes } from "../context/DesignContext";
 import { useLessonProgress } from "../context/LessonProgressContext";
+import { getGrammarLesson } from "../data/grammarLessons";
 
 const days = Array.from({ length: 30 }, (_, index) => index + 1);
 
@@ -15,7 +16,7 @@ export default function CourseScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={["top", "bottom"]}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Pressable accessibilityRole="button" onPress={() => router.back()} style={styles.back}>
+        <Pressable accessibilityRole="button" onPress={() => router.replace("/")} style={styles.back}>
           <Text style={styles.backText}>← 戻る</Text>
         </Pressable>
         <View style={styles.header}>
@@ -29,9 +30,9 @@ export default function CourseScreen() {
           <Text style={styles.hint}>○ 準備中</Text>
         </View>
         {days.map((day) => {
-          const available = day === 1 || day === 4;
+          const available = true;
           const completed = progressLoaded && isDayCompleted(day);
-          const label = day === 1 ? "主語と動詞の基本" : day === 4 ? "一般動詞の現在形" : "レッスン準備中";
+          const label = day === 1 ? "主語と動詞の基本" : day === 4 ? "一般動詞の現在形" : getGrammarLesson(day)?.title ?? "レッスン準備中";
           return (
             <Pressable
               key={day}
@@ -39,7 +40,7 @@ export default function CourseScreen() {
               accessibilityLabel={`Day ${day}、${label}、${completed ? "完了済み" : available ? "学習できる" : "準備中"}`}
               accessibilityState={{ disabled: !available }}
               disabled={!available}
-              onPress={() => router.push(day === 1 ? "/day1-lesson" : "/lesson")}
+              onPress={() => day === 1 ? router.push("/day1-lesson") : day === 4 ? router.push("/lesson") : router.push({ pathname: "/grammar", params: { day: String(day), stage: "lesson" } })}
               style={({ pressed }) => [styles.card, pressed && styles.pressed]}
             >
               <View style={[styles.dayIcon, completed && styles.completedIcon, available && !completed && styles.availableIcon]}>
@@ -54,7 +55,7 @@ export default function CourseScreen() {
             </Pressable>
           );
         })}
-        <Text style={styles.footnote}>ホーム画面の3日分は従来のサンプル進捗です。この一覧の完了表示は実際に保存された記録に基づきます。</Text>
+        <Text style={styles.footnote}>完了表示は、このブラウザに実際に保存された記録に基づきます。</Text>
       </ScrollView>
     </SafeAreaView>
   );

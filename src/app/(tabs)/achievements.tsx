@@ -9,16 +9,16 @@ export default function AchievementsScreen() {
   const { colors } = useDesign();
   const styles = useMemo(() => createStyles(colors), [colors]);
   const { day4Completed, completedDays: savedDays, progressLoaded } = useLessonProgress();
-  const completedDays = 3 + (progressLoaded ? savedDays.filter((day) => day > 3).length : 0);
+  const completedDays = progressLoaded ? savedDays.length : 0;
   return (
     <TabPage title="成長記録" subtitle="積み重ねた一歩を、言葉にして振り返ろう。">
       <TabCard pale>
         <Text style={styles.label}>30日間のコース</Text>
         <Text style={styles.large} accessibilityRole="header">{completedDays} / 30 日</Text>
-        <View style={styles.track} accessibilityRole="progressbar" accessibilityLabel="サンプルコース進捗" accessibilityValue={{ min: 0, max: 30, now: completedDays }}>
+        <View style={styles.track} accessibilityRole="progressbar" accessibilityLabel="コース進捗" accessibilityValue={{ min: 0, max: 30, now: completedDays }}>
           <View style={[styles.fill, { width: `${(completedDays / 30) * 100}%` }]} />
         </View>
-        <Text style={styles.note}>サンプル進捗です。Day 4完了後はこのブラウザに保存されます。</Text>
+        <Text style={styles.note}>完了済みレッスン数を表示しています。このブラウザに保存されます。</Text>
       </TabCard>
       <TabCard>
         <Text style={styles.label}>できるようになったこと</Text>
@@ -50,7 +50,7 @@ export default function AchievementsScreen() {
         )}
       </TabCard>
       <Text style={styles.note}>
-        ※ 現在はDay 4の完了のみ、このブラウザに保存されます。ほかの端末とは同期されません。
+        ※ Day 1〜30の完了状態はこのブラウザに保存されます。ほかの端末とは同期されません。
       </Text>
     </TabPage>
   );
