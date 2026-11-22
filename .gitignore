@@ -49,3 +49,6 @@ example
 /public/apple-touch-icon.png
 /public/icon-192.png
 /public/icon-512.png
+
+# Generated social share preview
+/public/og-image.png

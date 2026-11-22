@@ -114,4 +114,48 @@ writePng("icon-192.png", webIcon, PUBLIC);
 const webIconLarge = canvas(512, 512, C.teal);
 drawMark(webIconLarge, 0, 0, 512);
 writePng("icon-512.png", webIconLarge, PUBLIC);
-console.log("Generated Natural Grammar branding PNG assets.");
+
+/**
+ * Social preview (1200x630). Generated at install time so the PNG is served
+ * by Expo Hosting from public/ with a predictable URL and no extra packages.
+ * Use a compact pixel font to keep this generator dependency-free.
+ */
+const social = canvas(1200, 630, C.cream);
+function rect(img, x, y, w, h, color) {
+  for (let yy = Math.max(0, y); yy < Math.min(img.h, y + h); yy++)
+    for (let xx = Math.max(0, x); xx < Math.min(img.w, x + w); xx++)
+      pixel(img, xx, yy, color);
+}
+const glyphs = {
+  A: ["01110","10001","10001","11111","10001","10001","10001"],
+  G: ["01111","10000","10000","10111","10001","10001","01111"],
+  L: ["10000","10000","10000","10000","10000","10000","11111"],
+  M: ["10001","11011","10101","10101","10001","10001","10001"],
+  N: ["10001","11001","10101","10011","10001","10001","10001"],
+  R: ["11110","10001","10001","11110","10100","10010","10001"],
+  T: ["11111","00100","00100","00100","00100","00100","00100"],
+  U: ["10001","10001","10001","10001","10001","10001","01110"],
+};
+function word(img, text, x, y, scale, color) {
+  let left = x;
+  for (const ch of text) {
+    if (ch === " ") { left += 3 * scale; continue; }
+    const rows = glyphs[ch];
+    if (!rows) throw new Error("Unsupported social banner glyph: " + ch);
+    rows.forEach((line, row) => {
+      for (let col = 0; col < line.length; col++)
+        if (line[col] === "1") rect(img, left + col * scale, y + row * scale, scale, scale, color);
+    });
+    left += 6 * scale;
+  }
+}
+// The open book, leaves and star reuse the same mark as the app icon.
+ellipse(social, 215, 323, 180, 180, C.mint);
+drawMark(social, 38, 125, 365, true);
+word(social, "NATURAL", 445, 200, 14, C.teal);
+word(social, "GRAMMAR", 445, 332, 14, C.teal);
+rect(social, 445, 480, 550, 8, C.peach);
+rect(social, 0, 600, 1200, 30, C.teal);
+writePng("og-image.png", social, PUBLIC);
+
+console.log("Generated Natural Grammar branding PNG assets and social preview.");

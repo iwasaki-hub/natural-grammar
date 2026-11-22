@@ -16,6 +16,7 @@
 - Router構成見直し: 学習3画面を `src/app/(learning)/` に整理（URLは維持）。専用 `+not-found.tsx`、README・app.jsonの初期テンプレート表示を整理。専用アイコン/faviconは今後制作。
 - ホーム下部タブ: 設計資料の4タブ（ホーム/復習/成長記録/設定）をExpo Routerで実装するfeatureブランチ。復習はサンプル3問への再挑戦、成長記録は起動中のDay 4完了表示、設定は外観方針の案内のみ。PRの検証・マージは別途確認。
 - ブランド画像: 専用アイコン・スプラッシュ・faviconを`postinstall`生成スクリプトと`app.json`で追加。実機ネイティブ表示は未検証。
+- OGP共有プレビュー: `src/app/+html.tsx`にOpen Graph/Xカード設定、`public/og-image.png`は`postinstall`で生成。SNS実表示は未確認。
 - EAS Hosting: PR作成・更新でPreview、mainへのpushでProduction（PR #7マージ済み）。EXPO_TOKENはGitHub Repository secret。公開URLはActionsログで確認。
 
 ## 対象外・注意
