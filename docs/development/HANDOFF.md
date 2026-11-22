@@ -36,3 +36,8 @@
 3. npm ci、TypeScript、ESLint、GitHub Actionsの実結果を確認。
 4. PR PreviewをiPhoneで確認し、マージは明示指示を待つ。
 5. マージ後にProductionデプロイ結果を確認する。
+
+## Playwright E2E
+- `e2e/` に独立したPlaywright Testパッケージ、Chromium/WebKit設定、レッスン導線のブラウザテストを追加。
+- `.github/workflows/playwright.yml` がPRとmainで実行。詳細は `e2e/README.md`。
+- ネイティブ実機検証ではない。E2E依存lockfile固定化は今後の課題。
