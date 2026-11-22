@@ -8,8 +8,8 @@ import { useLessonProgress } from "../../context/LessonProgressContext";
 export default function AchievementsScreen() {
   const { colors } = useDesign();
   const styles = useMemo(() => createStyles(colors), [colors]);
-  const { day4Completed, progressLoaded } = useLessonProgress();
-  const completedDays = progressLoaded && day4Completed ? 4 : 3;
+  const { day4Completed, completedDays: savedDays, progressLoaded } = useLessonProgress();
+  const completedDays = 3 + (progressLoaded ? savedDays.filter((day) => day > 3).length : 0);
   return (
     <TabPage title="成長記録" subtitle="積み重ねた一歩を、言葉にして振り返ろう。">
       <TabCard pale>
