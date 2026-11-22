@@ -78,12 +78,10 @@ export function LessonProgressProvider({ children }: { children: ReactNode }) {
       markPracticePassed: () => setPracticePassed(true),
       completeDay4: () => {
         if (!practicePassed || !progressLoaded) return;
-        setCompletedDays((current) => {
-          if (current.includes(4)) return current;
-          const next = normalizeDays([...current, 4]);
-          writeCompletedDays(next);
-          return next;
-        });
+        if (completedDays.includes(4)) return;
+        const next = normalizeDays([...completedDays, ...readCompletedDays(), 4]);
+        writeCompletedDays(next);
+        setCompletedDays(next);
       },
     }),
     [completedDays, practicePassed, progressLoaded],
