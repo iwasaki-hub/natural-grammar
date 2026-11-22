@@ -1,0 +1,25 @@
+{
+  "name": "Natural Grammar",
+  "short_name": "Natural Grammar",
+  "description": "1日約10分、英文法を少しずつ学ぶ",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFF9F1",
+  "theme_color": "#126D65",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
