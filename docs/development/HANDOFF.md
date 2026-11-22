@@ -1,7 +1,7 @@
 # Natural Grammar — 開発引き継ぎ
 
 最終更新: 2026-11-22
-基準: main（PR #2 マージ後）。新しい作業の開始前に GitHub の最新 main と PR を再確認すること。
+基準: main（PR #3 マージ後）。新しい作業の開始前に GitHub の最新 main と PR を再確認すること。
 
 ## プロジェクトの目的
 
@@ -20,7 +20,7 @@
 
 ## 次に行うこと — Foundation 2
 
-**「今日の一歩」ホーム画面を1PRで実装する。**
+**「今日の一歩」ホーム画面を1PRで実装する。** 詳細な範囲・検証条件は [Foundation 2](foundation-2.md) を参照する。
 
 1. `docs/design/first-step.md` と `docs/design/images/home.png` を確認し、実装範囲と変更しない画面を定義する。
 2. コース進捗、今日のレッスン、直近の成長記録、主要CTAの表示をホーム画面に実装する。
@@ -47,6 +47,7 @@
 
 - [作業履歴](WORKLOG.md)
 - [Foundation 1](foundation-1.md)
+- [Foundation 2](foundation-2.md)
 - [ESLintの残課題](eslint-lock-followup.md)
 - [初期デザイン](../design/first-step.md)
 - [品質チェックWorkflow](../../.github/workflows/quality.yml)
