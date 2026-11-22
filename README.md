@@ -7,6 +7,7 @@
 - 3問の練習、誤答時のヒントと再挑戦
 - レッスンまとめと完了フロー
 - ホームのサンプル進捗表示（3/30 → 4/30）
+- 下部4タブ（ホーム、復習、成長記録、設定）
 
 **現時点の学習進捗はメモリ内のみです。** ブラウザの再読み込みやアプリ再起動でリセットされます。認証、永続保存、AIヒントは未実装です。
 
@@ -31,12 +32,19 @@ npm run lint
 src/
   app/
     _layout.tsx             # ルートStack・学習状態Provider
-    index.tsx               # ホーム (/)
+    (tabs)/
+      _layout.tsx           # 下部タブ
+      index.tsx             # ホーム (/)
+      review.tsx            # 復習 (/review)
+      achievements.tsx      # 成長記録 (/achievements)
+      settings.tsx          # 設定 (/settings)
     +not-found.tsx          # 不明なURL
     (learning)/             # URLに含まれない学習画面グループ
       lesson.tsx            # /lesson
       practice.tsx          # /practice
       summary.tsx           # /summary
+  components/
+    TabPage.tsx             # 共通タブ画面レイアウト
   context/
     LessonProgressContext.tsx  # 起動中だけ保持する学習状態
 ```
@@ -49,8 +57,12 @@ Expo Routerの括弧付きグループはURLに影響しないため、既存の
 - [作業履歴](docs/development/WORKLOG.md)
 - [Expo Router notation](https://docs.expo.dev/router/basics/notation/)
 
+## ブランド画像
+
+`npm ci` / `npm install` 後の `postinstall` で `node scripts/generate-brand-assets.cjs` が実行され、`assets/branding/` にアプリアイコン（1024×1024）、スプラッシュ画像（1200×1200）、Android adaptive icon、favicon（64×64）のPNGを生成します。ソースは `scripts/generate-brand-assets.cjs` で、生成PNGはGit管理対象外です。Expo設定は `app.json` にあります。インストールスクリプトを無効にした場合は、Expo起動前に生成コマンドを手動実行してください。
+
 ## デプロイ
 GitHub Pull RequestでExpo Hosting Preview、`main`へのマージでProductionデプロイ。マージは明示的な承認後に実施します。
 
 ## 今後の予定
-学習進捗の永続化、複数日カリキュラム、AIヒント、復習機能。アプリ専用アイコン・faviconの制作も今後の課題です。
+学習進捗と誤答履歴の永続化、複数日カリキュラム、AIヒント、復習履歴一覧、外観切り替え。Natural Grammar専用アイコン・スプラッシュ・faviconは生成スクリプトで設定済み。
