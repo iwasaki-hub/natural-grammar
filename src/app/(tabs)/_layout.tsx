@@ -1,15 +1,8 @@
+import { useDesign } from "../../context/DesignContext";
 import { Tabs, router } from "expo-router";
 import { useEffect, useState, type ComponentProps } from "react";
 import { Animated, Platform, Pressable, Text, View, type ColorValue, type ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const colors = {
-  background: "#FFF9F1",
-  surface: "#FFFFFF",
-  primary: "#237A6D",
-  muted: "#61736D",
-  border: "#D9E4DE",
-} as const;
 
 const tabContent: Record<string, { label: string; glyph: string }> = {
   index: { label: "ホーム", glyph: "⌂" },
@@ -31,6 +24,7 @@ type TabBarProps = Parameters<NonNullable<ComponentProps<typeof Tabs>["tabBar"]>
 // A single frosted-glass selection slides under the active tab, rather than
 // fading separate selected backgrounds in and out.
 function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
+  const { design, colors: themeColors } = useDesign();
   const insets = useSafeAreaInsets();
   const bottomInset = Math.max(insets.bottom, 12);
   const [barWidth, setBarWidth] = useState(0);
@@ -67,10 +61,10 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
         marginTop: 4,
         marginBottom: bottomInset,
         height: 68,
-        borderRadius: 24,
+        borderRadius: design === "simple" ? 18 : 24,
         borderWidth: 1,
         borderColor: "rgba(255,255,255,0.92)",
-        backgroundColor: "rgba(231,240,232,0.78)",
+        backgroundColor: design === "simple" ? "rgba(243,246,244,0.94)" : "rgba(231,240,232,0.78)",
         overflow: "hidden",
         shadowColor: "#305D55",
         shadowOpacity: 0.08,
@@ -89,12 +83,12 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
               left: 0,
               width: Math.max(itemWidth - 6, 0),
               marginLeft: 3,
-              borderRadius: 20,
-              borderWidth: 2,
+              borderRadius: design === "simple" ? 14 : 20,
+              borderWidth: design === "simple" ? 1 : 2,
               borderColor: "rgba(255,255,255,1)",
-              backgroundColor: "rgba(255,255,255,0.76)",
+              backgroundColor: design === "simple" ? "rgba(255,255,255,0.94)" : "rgba(255,255,255,0.76)",
               shadowColor: "#237A6D",
-              shadowOpacity: 0.26,
+              shadowOpacity: design === "simple" ? 0.1 : 0.26,
               shadowRadius: 14,
               shadowOffset: { width: 0, height: 3 },
               transform: [{ translateX: Animated.multiply(position, itemWidth) }],
@@ -107,7 +101,7 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
         const focused = state.index === index;
         const { options } = descriptors[route.key];
         const content = tabContent[route.name] ?? { label: options.title ?? route.name, glyph: "•" };
-        const color = focused ? colors.primary : colors.muted;
+        const color = focused ? themeColors.primary : themeColors.muted;
         return (
           <Pressable
             key={route.key}
@@ -139,6 +133,7 @@ function SlidingGlassTabBar({ state, descriptors }: TabBarProps) {
 }
 
 export default function MainTabsLayout() {
+  const { colors: themeColors } = useDesign();
   const insets = useSafeAreaInsets();
   // Keep the original native bar. The custom sliding-glass bar targets the web
   // app used in iPhone Safari and preserves the existing safe-area behavior.
@@ -148,11 +143,11 @@ export default function MainTabsLayout() {
       tabBar={Platform.OS === "web" ? (props) => <SlidingGlassTabBar {...props} /> : undefined}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.muted,
+        tabBarActiveTintColor: themeColors.primary,
+        tabBarInactiveTintColor: themeColors.muted,
         tabBarStyle: {
-          backgroundColor: colors.surface,
-          borderTopColor: colors.border,
+          backgroundColor: themeColors.surface,
+          borderTopColor: themeColors.border,
           height: 64 + bottomInset,
           paddingTop: 8,
           paddingBottom: bottomInset,
@@ -162,7 +157,7 @@ export default function MainTabsLayout() {
         tabBarIconStyle: { height: 28, width: 32 },
         tabBarItemStyle: { paddingVertical: 0 },
         tabBarHideOnKeyboard: true,
-        sceneStyle: { backgroundColor: colors.background },
+        sceneStyle: { backgroundColor: themeColors.background },
       }}
     >
       <Tabs.Screen name="index" options={{ title: "ホーム", tabBarAccessibilityLabel: "ホーム", tabBarIcon: ({ color }) => <TabIcon glyph="⌂" color={color} /> }} />

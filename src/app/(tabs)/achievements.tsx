@@ -1,9 +1,13 @@
+import { useMemo } from "react";
+import { useDesign, palettes } from "../../context/DesignContext";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { TabCard, TabPage, tabColors } from "../../components/TabPage";
+import { TabCard, TabPage } from "../../components/TabPage";
 import { useLessonProgress } from "../../context/LessonProgressContext";
 
 export default function AchievementsScreen() {
+  const { colors } = useDesign();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const { day4Completed } = useLessonProgress();
   const completedDays = day4Completed ? 4 : 3;
   return (
@@ -52,19 +56,21 @@ export default function AchievementsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  label: { color: tabColors.primary, fontSize: 14, fontWeight: "800" },
-  large: { color: tabColors.ink, fontSize: 32, lineHeight: 42, fontWeight: "800" },
-  track: { height: 12, backgroundColor: tabColors.border, borderRadius: 20, overflow: "hidden" },
-  fill: { height: "100%", backgroundColor: tabColors.primary, borderRadius: 20 },
-  note: { color: tabColors.muted, fontSize: 12, lineHeight: 20 },
-  heading: { color: tabColors.ink, fontSize: 20, lineHeight: 30, fontWeight: "800" },
-  body: { color: tabColors.ink, fontSize: 15, lineHeight: 25 },
+function createStyles(colors: (typeof palettes)["pop"] | (typeof palettes)["simple"]) {
+  return StyleSheet.create({
+  label: { color: colors.primary, fontSize: 14, fontWeight: "800" },
+  large: { color: colors.ink, fontSize: 32, lineHeight: 42, fontWeight: "800" },
+  track: { height: 12, backgroundColor: colors.border, borderRadius: 20, overflow: "hidden" },
+  fill: { height: "100%", backgroundColor: colors.primary, borderRadius: 20 },
+  note: { color: colors.muted, fontSize: 12, lineHeight: 20 },
+  heading: { color: colors.ink, fontSize: 20, lineHeight: 30, fontWeight: "800" },
+  body: { color: colors.ink, fontSize: 15, lineHeight: 25 },
   row: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  tag: { backgroundColor: tabColors.paleGreen, color: tabColors.primary, fontSize: 13, fontWeight: "800", padding: 10, borderRadius: 14, overflow: "hidden" },
+  tag: { backgroundColor: colors.paleGreen, color: colors.primary, fontSize: 13, fontWeight: "800", padding: 10, borderRadius: 14, overflow: "hidden" },
   sparkle: { fontSize: 24 },
-  english: { color: tabColors.ink, fontSize: 18, lineHeight: 28, fontWeight: "700" },
-  button: { backgroundColor: tabColors.primary, borderRadius: 18, minHeight: 54, padding: 14, alignItems: "center", justifyContent: "center" },
-  buttonText: { color: tabColors.surface, fontSize: 16, fontWeight: "800" },
+  english: { color: colors.ink, fontSize: 18, lineHeight: 28, fontWeight: "700" },
+  button: { backgroundColor: colors.primary, borderRadius: 18, minHeight: 54, padding: 14, alignItems: "center", justifyContent: "center" },
+  buttonText: { color: colors.surface, fontSize: 16, fontWeight: "800" },
   pressed: { opacity: 0.8 },
 });
+}
