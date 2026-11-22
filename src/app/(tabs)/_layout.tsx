@@ -4,14 +4,6 @@ import { useEffect, useState, type ComponentProps } from "react";
 import { Animated, Platform, Pressable, Text, View, type ColorValue, type ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const colors = {
-  background: "#FFF9F1",
-  surface: "#FFFFFF",
-  primary: "#237A6D",
-  muted: "#61736D",
-  border: "#D9E4DE",
-} as const;
-
 const tabContent: Record<string, { label: string; glyph: string }> = {
   index: { label: "ホーム", glyph: "⌂" },
   review: { label: "復習", glyph: "↺" },
