@@ -63,6 +63,10 @@ Expo Routerの括弧付きグループはURLに影響しないため、既存の
 
 Web版のiPhoneホーム画面用アイコンも自動生成します。`public/apple-touch-icon.png`（180×180）、`public/icon-192.png`、`public/icon-512.png` と `public/manifest.webmanifest` を使い、`src/app/+html.tsx` でSafari用メタタグを出力します。iPhone Safariでサイトを開き、共有 →「ホーム画面に追加」でアイコンを確認できます。古いショートカットは削除して追加し直してください。
 
+## URL共有時のプレビュー（OGP）
+
+`src/app/+html.tsx` のサーバー描画HTMLにOGP / X Cardメタタグを設定しています。`npm ci` 後の `postinstall` が `public/og-image.png`（1200×630）を生成します。Production URL `https://natural-grammar.expo.app/og-image.png` から画像が取得できることを確認してください。LINE、X、Slackなどのプレビュー表示は各サービスの取得・キャッシュ状況に依存します。画像の原本は生成スクリプトです。
+
 ## デプロイ
 GitHub Pull RequestでExpo Hosting Preview、`main`へのマージでProductionデプロイ。マージは明示的な承認後に実施します。
 
